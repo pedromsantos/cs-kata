@@ -1,6 +1,6 @@
 # C# kata starter
 
-This project contains a number of katas with instructions ordered in a proven path described in my book Agile Technical Practices Distilled.
+This project contains a number of katas with instructions ordered in a proven path described in my book [Agile Technical Practices Distilled](https://leanpub.com/agiletechnicalpracticesdistilled).
 
 ## Instructions
 
