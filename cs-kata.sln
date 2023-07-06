@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "7_TicTacToe", "7_TicTacToe\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "8_Yahtzee", "8_Yahtzee\8_Yahtzee.csproj", "{D5442FEF-29C4-4632-B9AD-E5E29C80082B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "9_MarsRover", "9_MarsRover\9_MarsRover.csproj", "{79780182-64AA-4A9A-93E6-F307140328B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,5 +62,9 @@ Global
 		{D5442FEF-29C4-4632-B9AD-E5E29C80082B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5442FEF-29C4-4632-B9AD-E5E29C80082B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5442FEF-29C4-4632-B9AD-E5E29C80082B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79780182-64AA-4A9A-93E6-F307140328B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79780182-64AA-4A9A-93E6-F307140328B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79780182-64AA-4A9A-93E6-F307140328B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79780182-64AA-4A9A-93E6-F307140328B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
