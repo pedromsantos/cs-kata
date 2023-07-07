@@ -15,3 +15,9 @@ Execute tests
 ```sh
 dotnet test
 ```
+
+Execute tests with coverage
+
+```sh
+dotnet test --collect "XPlat Code Coverage"
+```
