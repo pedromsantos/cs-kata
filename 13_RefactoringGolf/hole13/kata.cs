@@ -217,7 +217,7 @@ public class Tile
         Player = player;
     }
 
-    public bool HasSamePlayer(Tile other)
+    public bool HasSamePlayerHas(Tile other)
     {
         return Player == other.Player;
     }
@@ -290,9 +290,9 @@ public class Board
     
     private bool IsSamePlayerInRow(int rowIndex)
     {
-        return TileAtRowLeftColumn(rowIndex).HasSamePlayer(
+        return TileAtRowLeftColumn(rowIndex).HasSamePlayerHas(
                    TileAtRowCenterColumn(rowIndex)) &&
-               TileAtRowLeftColumn(rowIndex).HasSamePlayer(
+               TileAtRowLeftColumn(rowIndex).HasSamePlayerHas(
                    TileAtRowRightColumn(rowIndex));
     }
 
