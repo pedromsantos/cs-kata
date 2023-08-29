@@ -266,7 +266,7 @@ public class Board
     {
         for (var rowIndex = 0; rowIndex < 3; rowIndex++)
         {
-            if (IsRowTakenWithPlayer(rowIndex))
+            if (IsRowTakenWithSamePlayer(rowIndex))
             {
                 return TileAt(new Tile(new Coordinate(rowIndex, 0))).Player;
             } 
@@ -275,25 +275,40 @@ public class Board
         return Player.Empty;
     }
 
-    private bool IsRowTakenWithPlayer(int rowIndex)
+    private bool IsRowTakenWithSamePlayer(int rowIndex)
     {
         return IsRowTaken(rowIndex) &&
-               HasRowSamePlayer(rowIndex);
+               IsSamePlayerInRow(rowIndex);
     }
 
-    private bool HasRowSamePlayer(int rowIndex)
+    private bool IsSamePlayerInRow(int rowIndex)
     {
-        return (TileAt(new Tile(new Coordinate(rowIndex, 0))).HasSamePlayer(
-                TileAt(new Tile(new Coordinate(rowIndex, 1)))) &&
-                TileAt(new Tile(new Coordinate(rowIndex, 2))).HasSamePlayer(
-                TileAt(new Tile(new Coordinate(rowIndex, 1)))));
+        return TileAtRowLeftColumn(rowIndex).HasSamePlayer(
+                   TileAtRowCenterColumn(rowIndex)) &&
+               TileAtRowLeftColumn(rowIndex).HasSamePlayer(
+                   TileAtRowRightColumn(rowIndex));
     }
-
+    
     private bool IsRowTaken(int rowIndex)
     {
-        return TileAt(new Tile(new Coordinate(rowIndex, 0))).IsTaken() &&
-               TileAt(new Tile(new Coordinate(rowIndex, 1))).IsTaken() &&
-               TileAt(new Tile(new Coordinate(rowIndex, 2))).IsTaken();
+        return TileAt(TileAtRowLeftColumn(rowIndex)).IsTaken() &&
+               TileAt(TileAtRowCenterColumn(rowIndex)).IsTaken() &&
+               TileAt(TileAtRowRightColumn(rowIndex)).IsTaken();
+    }
+
+    private Tile TileAtRowLeftColumn(int rowIndex)
+    {
+        return TileAt(new Tile(new Coordinate(rowIndex, 0)));
+    }
+
+    private Tile TileAtRowCenterColumn(int rowIndex)
+    {
+        return TileAt(new Tile(new Coordinate(rowIndex, 1)));
+    }
+
+    private Tile TileAtRowRightColumn(int rowIndex)
+    {
+        return TileAt(new Tile(new Coordinate(rowIndex, 2)));
     }
 }
 
