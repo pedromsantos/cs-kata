@@ -1,3 +1,4 @@
+using RefactoringGolf.hole10;
 using Xunit;
 
 namespace RefactoringGolf.hole13;
@@ -155,7 +156,7 @@ public enum Row
     Bottom
 }
 
-public enum Column 
+public enum Column
 {
     Left,
     Center,
@@ -184,7 +185,7 @@ public class Coordinate
     {
         return HashCode.Combine((int)_row, (int)_column);
     }
-    
+
     private static Column ToColumn(int column)
     {
         return column switch
@@ -206,7 +207,7 @@ public class Coordinate
             _ => throw new ArgumentOutOfRangeException(nameof(row), row, "Invalid row")
         };
     }
-    
+
     private bool Equals(Coordinate other)
     {
         return _row == other._row && _column == other._column;
@@ -217,7 +218,7 @@ public class Coordinate
 public class Tile
 {
     private readonly Coordinate _coordinate;
-    
+
     public Player Player { get; private set; }
 
     public Tile(Coordinate coordinate, Player player = Player.None)
@@ -278,9 +279,9 @@ public class Board
             if (IsRowTakenWithSamePlayer(rowIndex))
             {
                 return TileAt(new Tile(new Coordinate(rowIndex, 0))).Player;
-            } 
+            }
         }
-            
+
         return Player.None;
     }
 
@@ -296,7 +297,7 @@ public class Board
                TileAtRowCenterColumn(rowIndex).IsTaken() &&
                TileAtRowRightColumn(rowIndex).IsTaken();
     }
-    
+
     private bool IsSamePlayerInRow(int rowIndex)
     {
         return TileAtRowLeftColumn(rowIndex).HasSamePlayerHas(
@@ -307,17 +308,17 @@ public class Board
 
     private Tile TileAtRowLeftColumn(int rowIndex)
     {
-        return TileAt(new Tile(new Coordinate(rowIndex, 0)));
+        return TileAt(new Tile(new Coordinate(rowIndex, (int)Column.Left)));
     }
 
     private Tile TileAtRowCenterColumn(int rowIndex)
     {
-        return TileAt(new Tile(new Coordinate(rowIndex, 1)));
+        return TileAt(new Tile(new Coordinate(rowIndex, (int)Column.Center)));
     }
 
     private Tile TileAtRowRightColumn(int rowIndex)
     {
-        return TileAt(new Tile(new Coordinate(rowIndex, 2)));
+        return TileAt(new Tile(new Coordinate(rowIndex, (int)Column.Right)));
     }
 }
 
@@ -334,7 +335,7 @@ public class Game
         UpdateLastPlayer(tile.Player);
         UpdateBoard(tile);
     }
-    
+
     public Player Winner()
     {
         return _board.FindPlayerWhoTookARow();
@@ -347,7 +348,7 @@ public class Game
             throw new Exception("Invalid player");
         }
     }
-    
+
     private void ValidatePosition(Tile tile)
     {
         if (_board.TileAt(tile).IsTaken())
@@ -355,12 +356,12 @@ public class Game
             throw new Exception("Invalid position");
         }
     }
-    
+
     private void UpdateLastPlayer(Player player)
     {
         _lastPlayer = player;
     }
-    
+
     private void UpdateBoard(Tile tile)
     {
         _board.AddTileAt(tile);
