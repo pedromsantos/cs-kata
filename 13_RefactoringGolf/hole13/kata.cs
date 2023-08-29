@@ -13,7 +13,7 @@ public class GameShould
         {
             _game.Play(new Tile(new Coordinate(0, 0), Player.O));
         });
-        Assert.Equal("Invalid first player", exception.Message);
+        Assert.Equal("Invalid player", exception.Message);
     }
 
     [Fact]
@@ -25,7 +25,7 @@ public class GameShould
         {
             _game.Play(new Tile(new Coordinate(1, 0), Player.X));
         });
-        Assert.Equal("Invalid next player", exception.Message);
+        Assert.Equal("Invalid player", exception.Message);
     }
 
     [Fact]
@@ -143,7 +143,7 @@ public class GameShould
 
 public enum Player
 {
-    Empty,
+    None,
     X,
     O
 }
@@ -211,7 +211,7 @@ public class Tile
     
     public Player Player { get; private set; }
 
-    public Tile(Coordinate coordinate, Player player = Player.Empty)
+    public Tile(Coordinate coordinate, Player player = Player.None)
     {
         this._coordinate = coordinate;
         Player = player;
@@ -224,7 +224,7 @@ public class Tile
 
     public bool IsTaken()
     {
-        return Player != Player.Empty;
+        return Player != Player.None;
     }
 
     public bool HasSamePosition(Tile other)
@@ -272,7 +272,7 @@ public class Board
             } 
         }
             
-        return Player.Empty;
+        return Player.None;
     }
 
     private bool IsRowTakenWithSamePlayer(int rowIndex)
@@ -315,11 +315,10 @@ public class Board
 public class Game
 {
     private readonly Board _board = new();
-    private Player _lastPlayer = Player.Empty;
+    private Player _lastPlayer = Player.O;
 
     public void Play(Tile tile)
     {
-        ValidateFirstPlayer(tile.Player);
         ValidatePlayer(tile.Player);
         ValidatePositionIsEmpty(tile);
 
@@ -354,15 +353,7 @@ public class Game
     {
         if (player == _lastPlayer)
         {
-            throw new Exception("Invalid next player");
-        }
-    }
-
-    private void ValidateFirstPlayer(Player player)
-    {
-        if (_lastPlayer == Player.Empty && player == Player.O)
-        {
-            throw new Exception("Invalid first player");
+            throw new Exception("Invalid player");
         }
     }
 }
