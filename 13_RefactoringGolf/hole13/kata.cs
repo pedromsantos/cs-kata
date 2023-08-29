@@ -281,19 +281,19 @@ public class Board
                IsSamePlayerInRow(rowIndex);
     }
 
+    private bool IsRowTaken(int rowIndex)
+    {
+        return TileAt(TileAtRowLeftColumn(rowIndex)).IsTaken() &&
+               TileAt(TileAtRowCenterColumn(rowIndex)).IsTaken() &&
+               TileAt(TileAtRowRightColumn(rowIndex)).IsTaken();
+    }
+    
     private bool IsSamePlayerInRow(int rowIndex)
     {
         return TileAtRowLeftColumn(rowIndex).HasSamePlayer(
                    TileAtRowCenterColumn(rowIndex)) &&
                TileAtRowLeftColumn(rowIndex).HasSamePlayer(
                    TileAtRowRightColumn(rowIndex));
-    }
-    
-    private bool IsRowTaken(int rowIndex)
-    {
-        return TileAt(TileAtRowLeftColumn(rowIndex)).IsTaken() &&
-               TileAt(TileAtRowCenterColumn(rowIndex)).IsTaken() &&
-               TileAt(TileAtRowRightColumn(rowIndex)).IsTaken();
     }
 
     private Tile TileAtRowLeftColumn(int rowIndex)
