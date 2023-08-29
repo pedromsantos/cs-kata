@@ -227,7 +227,7 @@ public class Tile
         return Player != Player.None;
     }
 
-    public bool HasSamePosition(Tile other)
+    public bool HasSamePositionHas(Tile other)
     {
         return Equals(_coordinate, other._coordinate);
     }
@@ -254,7 +254,7 @@ public class Board
     }
     public Tile TileAt(Tile other)
     {
-        return _plays.Single(tile => tile.HasSamePosition(other));
+        return _plays.Single(tile => tile.HasSamePositionHas(other));
     }
 
     public void AddTileAt(Tile newTile)
