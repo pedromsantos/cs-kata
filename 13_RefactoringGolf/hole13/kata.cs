@@ -317,14 +317,14 @@ public class Game
     private readonly Board _board = new();
     private Player _lastPlayer = Player.Empty;
 
-    public void Play(Tile newTile)
+    public void Play(Tile tile)
     {
-        ValidateFirstMove(newTile.Player);
-        ValidatePlayer(newTile.Player);
-        ValidatePositionIsEmpty(newTile);
+        ValidateFirstPlayer(tile.Player);
+        ValidatePlayer(tile.Player);
+        ValidatePositionIsEmpty(tile);
 
-        UpdateLastPlayer(newTile.Player);
-        UpdateBoard(newTile);
+        UpdateLastPlayer(tile.Player);
+        UpdateBoard(tile);
     }
     
     public Player Winner()
@@ -332,14 +332,14 @@ public class Game
         return _board.FindPlayerWhoTookARow();
     }
 
-    private void UpdateBoard(Tile newTile)
+    private void UpdateBoard(Tile tile)
     {
-        _board.AddTileAt(newTile);
+        _board.AddTileAt(tile);
     }
 
-    private void UpdateLastPlayer(Player newPlayer)
+    private void UpdateLastPlayer(Player player)
     {
-        _lastPlayer = newPlayer;
+        _lastPlayer = player;
     }
 
     private void ValidatePositionIsEmpty(Tile tile)
@@ -358,7 +358,7 @@ public class Game
         }
     }
 
-    private void ValidateFirstMove(Player player)
+    private void ValidateFirstPlayer(Player player)
     {
         if (_lastPlayer == Player.Empty && player == Player.O)
         {
