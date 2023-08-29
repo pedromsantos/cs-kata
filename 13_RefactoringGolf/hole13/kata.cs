@@ -320,6 +320,11 @@ public class Game
         UpdateLastPlayer(newTile.Player);
         UpdateBoard(newTile);
     }
+    
+    public Player Winner()
+    {
+        return _board.FindPlayerWhoTookARow();
+    }
 
     private void UpdateBoard(Tile newTile)
     {
@@ -353,10 +358,5 @@ public class Game
         {
             throw new Exception("Invalid first player");
         }
-    }
-
-    public Player Winner()
-    {
-        return _board.FindPlayerWhoTookARow();
     }
 }
