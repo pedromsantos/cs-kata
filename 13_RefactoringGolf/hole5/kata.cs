@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace RefactoringGolf.hole4;
+namespace RefactoringGolf.hole5;
 
 public class GameShould
 {
@@ -168,23 +168,38 @@ public class Board
         _plays.Single(tile => tile.X == x && tile.Y == y).Symbol = symbol;
     }
 
-    public char CommonSymbolOnRow()
+    public char FindSymbolWhoTookARow()
     {
         for (var rowIndex = 0; rowIndex < 3; rowIndex++)
         {
-            if (TileAt(rowIndex, 0).Symbol != ' ' &&
-                TileAt(rowIndex, 1).Symbol != ' ' &&
-                TileAt(rowIndex, 2).Symbol != ' ' &&
-                TileAt(rowIndex, 0).Symbol ==
-                TileAt(rowIndex, 1).Symbol &&
-                TileAt(rowIndex, 2).Symbol ==
-                TileAt(rowIndex, 1).Symbol)
+            if (IsRowTakenWithSymbol(rowIndex))
             {
                 return TileAt(rowIndex, 0).Symbol;
             } 
         }
             
         return ' ';
+    }
+
+    private bool IsRowTakenWithSymbol(int rowIndex)
+    {
+        return IsRowTaken(rowIndex) &&
+               HasRowSameSymbol(rowIndex);
+    }
+
+    private bool HasRowSameSymbol(int rowIndex)
+    {
+        return (TileAt(rowIndex, 0).Symbol ==
+                TileAt(rowIndex, 1).Symbol &&
+                TileAt(rowIndex, 2).Symbol ==
+                TileAt(rowIndex, 1).Symbol);
+    }
+
+    private bool IsRowTaken(int rowIndex)
+    {
+        return TileAt(rowIndex, 0).Symbol != ' ' &&
+               TileAt(rowIndex, 1).Symbol != ' ' &&
+               TileAt(rowIndex, 2).Symbol != ' ';
     }
 }
 
@@ -233,7 +248,6 @@ public class Game
     {
         if (_lastSymbol == ' ')
         {
-            //if player is X
             if (symbol == 'O')
             {
                 throw new Exception("Invalid first player");
@@ -243,7 +257,6 @@ public class Game
 
     public char Winner()
     {
-        //if the positions in first row are taken
-        return _board.CommonSymbolOnRow();
+        return _board.FindSymbolWhoTookARow();
     }
 }

@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace RefactoringGolf.hole7;
+namespace RefactoringGolf.hole8;
 
 public class GameShould
 {
@@ -214,22 +214,22 @@ public class Board
         return _plays.Single(tile => tile.X == x && tile.Y == y);
     }
 
-    public void AddTileAt(char symbol, int x, int y)
+    public void AddTileAt(int x, int y, Symbol symbol)
     {
-        _plays.Single(tile => tile.X == x && tile.Y == y).Symbol = symbol.ToEnum();
+        _plays.Single(tile => tile.X == x && tile.Y == y).Symbol = symbol;
     }
 
-    public char FindSymbolWhoTookARow()
+    public Symbol FindSymbolWhoTookARow()
     {
         for (var rowIndex = 0; rowIndex < 3; rowIndex++)
         {
             if (IsRowTakenWithSymbol(rowIndex))
             {
-                return TileAt(rowIndex, 0).GetSymbol();
+                return TileAt(rowIndex, 0).Symbol;
             } 
         }
             
-        return ' ';
+        return Symbol.Empty;
     }
 
     private bool IsRowTakenWithSymbol(int rowIndex)
@@ -256,25 +256,25 @@ public class Board
 
 public class Game
 {
-    private char _lastSymbol = ' ';
+    private Symbol _lastSymbol = Symbol.Empty;
     private Board _board = new Board();
 
     public void Play(char symbol, int x, int y)
     {
-        ValidateFirstMove(symbol);
-        ValidatePlayer(symbol);
+        ValidateFirstMove(symbol.ToEnum());
+        ValidatePlayer(symbol.ToEnum());
         ValidatePositionIsEmpty(x, y);
 
-        UpdateLastPlayer(symbol);
-        UpdateBoard(symbol, x, y);
+        UpdateLastPlayer(symbol.ToEnum());
+        UpdateBoard(x, y, symbol.ToEnum());
     }
 
-    private void UpdateBoard(char symbol, int x, int y)
+    private void UpdateBoard(int x, int y, Symbol symbol)
     {
-        _board.AddTileAt(symbol, x, y);
+        _board.AddTileAt(x, y, symbol);
     }
 
-    private void UpdateLastPlayer(char symbol)
+    private void UpdateLastPlayer(Symbol symbol)
     {
         _lastSymbol = symbol;
     }
@@ -287,7 +287,7 @@ public class Game
         }
     }
 
-    private void ValidatePlayer(char symbol)
+    private void ValidatePlayer(Symbol symbol)
     {
         if (symbol == _lastSymbol)
         {
@@ -295,11 +295,11 @@ public class Game
         }
     }
 
-    private void ValidateFirstMove(char symbol)
+    private void ValidateFirstMove(Symbol symbol)
     {
-        if (_lastSymbol == ' ')
+        if (_lastSymbol == Symbol.Empty)
         {
-            if (symbol == 'O')
+            if (symbol == Symbol.O)
             {
                 throw new Exception("Invalid first player");
             }
@@ -308,6 +308,6 @@ public class Game
 
     public char Winner()
     {
-        return _board.FindSymbolWhoTookARow();
+        return _board.FindSymbolWhoTookARow().ToChar();
     }
 }

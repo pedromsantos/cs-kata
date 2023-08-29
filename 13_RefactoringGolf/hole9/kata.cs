@@ -1,148 +1,6 @@
 using Xunit;
 
-namespace RefactoringGolf.hole8;
-
-public class GameShould
-{
-    private readonly Game game = new();
-
-    [Fact]
-    public void NotAllowPlayerOToPlayFirst()
-    {
-        Action wrongPlay = () => game.Play('O', 0, 0);
-
-        var exception = Assert.Throws<Exception>(wrongPlay);
-        Assert.Equal("Invalid first player", exception.Message);
-    }
-
-    [Fact]
-    public void NotAllowPlayerXToPlayTwiceInARow()
-    {
-        game.Play('X', 0, 0);
-
-        Action wrongPlay = () => game.Play('X', 1, 0);
-
-        var exception = Assert.Throws<Exception>(wrongPlay);
-        Assert.Equal("Invalid next player", exception.Message);
-    }
-
-    [Fact]
-    public void NotAllowPlayerToPlayInLastPlayedPosition()
-    {
-        game.Play('X', 0, 0);
-
-        Action wrongPlay = () => game.Play('O', 0, 0);
-
-        var exception = Assert.Throws<Exception>(wrongPlay);
-        Assert.Equal("Invalid position", exception.Message);
-    }
-
-    [Fact]
-    public void NotAllowPlayerToPlayInAnyPlayedPosition()
-    {
-        game.Play('X', 0, 0);
-        game.Play('O', 1, 0);
-
-        Action wrongPlay = () => game.Play('X', 0, 0);
-
-        var exception = Assert.Throws<Exception>(wrongPlay);
-        Assert.Equal("Invalid position", exception.Message);
-    }
-
-    [Fact]
-    public void DeclarePlayerXAsAWinnerIfThreeInTopRow()
-    {
-        game.Play('X', 0, 0);
-        game.Play('O', 1, 0);
-        game.Play('X', 0, 1);
-        game.Play('O', 1, 1);
-        game.Play('X', 0, 2);
-
-        var winner = game.Winner();
-
-        Assert.Equal('X', winner);
-    }
-
-    [Fact]
-    public void DeclarePlayerOAsAWinnerIfThreeInTopRow()
-    {
-        game.Play('X', 2, 2);
-        game.Play('O', 0, 0);
-        game.Play('X', 1, 0);
-        game.Play('O', 0, 1);
-        game.Play('X', 1, 1);
-        game.Play('O', 0, 2);
-
-        var winner = game.Winner();
-
-        Assert.Equal('O', winner);
-    }
-
-    [Fact]
-    public void DeclarePlayerXAsAWinnerIfThreeInMiddleRow()
-    {
-        game.Play('X', 1, 0);
-        game.Play('O', 0, 0);
-        game.Play('X', 1, 1);
-        game.Play('O', 0, 1);
-        game.Play('X', 1, 2);
-
-        var winner = game.Winner();
-
-        Assert.Equal('X', winner);
-    }
-
-    [Fact]
-    public void DeclarePlayerOAsAWinnerIfThreeInMiddleRow()
-    {
-        game.Play('X', 0, 0);
-        game.Play('O', 1, 0);
-        game.Play('X', 2, 0);
-        game.Play('O', 1, 1);
-        game.Play('X', 2, 1);
-        game.Play('O', 1, 2);
-
-        var winner = game.Winner();
-
-        Assert.Equal('O', winner);
-    }
-
-    [Fact]
-    public void DeclarePlayerXAsAWinnerIfThreeInBottomRow()
-    {
-        game.Play('X', 2, 0);
-        game.Play('O', 0, 0);
-        game.Play('X', 2, 1);
-        game.Play('O', 0, 1);
-        game.Play('X', 2, 2);
-
-        var winner = game.Winner();
-
-        Assert.Equal('X', winner);
-    }
-
-    [Fact]
-    public void DeclarePlayerOAsAWinnerIfThreeInBottomRow()
-    {
-        game.Play('X', 0, 0);
-        game.Play('O', 2, 0);
-        game.Play('X', 1, 0);
-        game.Play('O', 2, 1);
-        game.Play('X', 1, 1);
-        game.Play('O', 2, 2);
-
-        var winner = game.Winner();
-
-        Assert.Equal('O', winner);
-    }
-}
-
-public enum Symbol
-{
-    Empty,
-    X,
-    O
-}
+namespace RefactoringGolf.hole9;
 
 public static class SymbolExtensions
 {
@@ -161,16 +19,153 @@ public static class SymbolExtensions
     }
 }
 
+public class GameShould
+{
+    private readonly Game game = new();
+
+    [Fact]
+    public void NotAllowPlayerOToPlayFirst()
+    {
+        Action wrongPlay = () => game.Play(0, 0, 'O'.ToEnum());
+
+        var exception = Assert.Throws<Exception>(wrongPlay);
+        Assert.Equal("Invalid first player", exception.Message);
+    }
+
+    [Fact]
+    public void NotAllowPlayerXToPlayTwiceInARow()
+    {
+        game.Play(0, 0, 'X'.ToEnum());
+
+        Action wrongPlay = () => game.Play(1, 0, 'X'.ToEnum());
+
+        var exception = Assert.Throws<Exception>(wrongPlay);
+        Assert.Equal("Invalid next player", exception.Message);
+    }
+
+    [Fact]
+    public void NotAllowPlayerToPlayInLastPlayedPosition()
+    {
+        game.Play(0, 0, 'X'.ToEnum());
+
+        Action wrongPlay = () => game.Play(0, 0, 'O'.ToEnum());
+
+        var exception = Assert.Throws<Exception>(wrongPlay);
+        Assert.Equal("Invalid position", exception.Message);
+    }
+
+    [Fact]
+    public void NotAllowPlayerToPlayInAnyPlayedPosition()
+    {
+        game.Play(0, 0, 'X'.ToEnum());
+        game.Play(1, 0, 'O'.ToEnum());
+
+        Action wrongPlay = () => game.Play(0, 0, 'X'.ToEnum());
+
+        var exception = Assert.Throws<Exception>(wrongPlay);
+        Assert.Equal("Invalid position", exception.Message);
+    }
+
+    [Fact]
+    public void DeclarePlayerXAsAWinnerIfThreeInTopRow()
+    {
+        game.Play(0, 0, 'X'.ToEnum());
+        game.Play(1, 0, 'O'.ToEnum());
+        game.Play(0, 1, 'X'.ToEnum());
+        game.Play(1, 1, 'O'.ToEnum());
+        game.Play(0, 2, 'X'.ToEnum());
+
+        var winner = game.Winner();
+
+        Assert.Equal('X', winner.ToChar());
+    }
+
+    [Fact]
+    public void DeclarePlayerOAsAWinnerIfThreeInTopRow()
+    {
+        game.Play(2, 2, 'X'.ToEnum());
+        game.Play(0, 0, 'O'.ToEnum());
+        game.Play(1, 0, 'X'.ToEnum());
+        game.Play(0, 1, 'O'.ToEnum());
+        game.Play(1, 1, 'X'.ToEnum());
+        game.Play(0, 2, 'O'.ToEnum());
+
+        var winner = game.Winner();
+
+        Assert.Equal('O', winner.ToChar());
+    }
+
+    [Fact]
+    public void DeclarePlayerXAsAWinnerIfThreeInMiddleRow()
+    {
+        game.Play(1, 0, 'X'.ToEnum());
+        game.Play(0, 0, 'O'.ToEnum());
+        game.Play(1, 1, 'X'.ToEnum());
+        game.Play(0, 1, 'O'.ToEnum());
+        game.Play(1, 2, 'X'.ToEnum());
+
+        var winner = game.Winner();
+
+        Assert.Equal('X', winner.ToChar());
+    }
+
+    [Fact]
+    public void DeclarePlayerOAsAWinnerIfThreeInMiddleRow()
+    {
+        game.Play(0, 0, 'X'.ToEnum());
+        game.Play(1, 0, 'O'.ToEnum());
+        game.Play(2, 0, 'X'.ToEnum());
+        game.Play(1, 1, 'O'.ToEnum());
+        game.Play(2, 1, 'X'.ToEnum());
+        game.Play(1, 2, 'O'.ToEnum());
+
+        var winner = game.Winner();
+
+        Assert.Equal('O', winner.ToChar());
+    }
+
+    [Fact]
+    public void DeclarePlayerXAsAWinnerIfThreeInBottomRow()
+    {
+        game.Play(2, 0, 'X'.ToEnum());
+        game.Play(0, 0, 'O'.ToEnum());
+        game.Play(2, 1, 'X'.ToEnum());
+        game.Play(0, 1, 'O'.ToEnum());
+        game.Play(2, 2, 'X'.ToEnum());
+
+        var winner = game.Winner();
+
+        Assert.Equal('X', winner.ToChar());
+    }
+
+    [Fact]
+    public void DeclarePlayerOAsAWinnerIfThreeInBottomRow()
+    {
+        game.Play(0, 0, 'X'.ToEnum());
+        game.Play(2, 0, 'O'.ToEnum());
+        game.Play(1, 0, 'X'.ToEnum());
+        game.Play(2, 1, 'O'.ToEnum());
+        game.Play(1, 1, 'X'.ToEnum());
+        game.Play(2, 2, 'O'.ToEnum());
+
+        var winner = game.Winner();
+
+        Assert.Equal('O', winner.ToChar());
+    }
+}
+
+public enum Symbol
+{
+    Empty,
+    X,
+    O
+}
+
 public class Tile
 {
-    public int X { get; private set; }
-    public int Y { get; private set; }
+    public int X { get; }
+    public int Y { get; }
     public Symbol Symbol { get; set; }
-
-    public Tile(int x, int y, char symbol = ' ')
-     :this(x,y, symbol.ToEnum())
-    {
-    }
 
     public Tile(int x, int y, Symbol symbol)
     {
@@ -187,11 +182,6 @@ public class Tile
     public bool IsTaken()
     {
         return Symbol != Symbol.Empty;
-    }
-
-    public char GetSymbol()
-    {
-        return Symbol.ToChar();
     }
 }
 
@@ -257,16 +247,16 @@ public class Board
 public class Game
 {
     private Symbol _lastSymbol = Symbol.Empty;
-    private Board _board = new Board();
+    private Board _board = new();
 
-    public void Play(char symbol, int x, int y)
+    public void Play(int x, int y, Symbol newSymbol)
     {
-        ValidateFirstMove(symbol.ToEnum());
-        ValidatePlayer(symbol.ToEnum());
+        ValidateFirstMove(newSymbol);
+        ValidatePlayer(newSymbol);
         ValidatePositionIsEmpty(x, y);
 
-        UpdateLastPlayer(symbol.ToEnum());
-        UpdateBoard(x, y, symbol.ToEnum());
+        UpdateLastPlayer(newSymbol);
+        UpdateBoard(x, y, newSymbol);
     }
 
     private void UpdateBoard(int x, int y, Symbol symbol)
@@ -306,8 +296,8 @@ public class Game
         }
     }
 
-    public char Winner()
+    public Symbol Winner()
     {
-        return _board.FindSymbolWhoTookARow().ToChar();
+        return _board.FindSymbolWhoTookARow();
     }
 }

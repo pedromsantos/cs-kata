@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace RefactoringGolf.hole2;
+namespace RefactoringGolf.hole3;
 
 public class GameShould
 {
@@ -146,7 +146,7 @@ public class Tile
 
 public class Board
 {
-    private List<Tile> _plays = new List<Tile>();
+    private List<Tile> _plays = new();
 
     public Board()
     {
@@ -165,17 +165,10 @@ public class Board
 
     public void AddTileAt(char symbol, int x, int y)
     {
-        var newTile = new Tile
-        {
-            X = x,
-            Y = y,
-            Symbol = symbol
-        };
-
         _plays.Single(tile => tile.X == x && tile.Y == y).Symbol = symbol;
     }
 
-    public char SamePlayerAtAllColumnsInRow()
+    public char SamePlayerAtAllColumnsInRows()
     {
         if (this.TileAt(0, 0).Symbol != ' ' &&
             this.TileAt(0, 1).Symbol != ' ' &&
@@ -232,36 +225,53 @@ public class Game
 
     public void Play(char symbol, int x, int y)
     {
-        //if first move
+        ValidateFirstMove(symbol);
+        ValidatePlayer(symbol);
+        ValidatePositionIsEmpty(x, y);
+
+        UpdateLastPlayer(symbol);
+        UpdateBoard(symbol, x, y);
+    }
+
+    private void UpdateBoard(char symbol, int x, int y)
+    {
+        _board.AddTileAt(symbol, x, y);
+    }
+
+    private void UpdateLastPlayer(char symbol)
+    {
+        _lastSymbol = symbol;
+    }
+
+    private void ValidatePositionIsEmpty(int x, int y)
+    {
+        if (_board.TileAt(x, y).Symbol != ' ')
+        {
+            throw new Exception("Invalid position");
+        }
+    }
+
+    private void ValidatePlayer(char symbol)
+    {
+        if (symbol == _lastSymbol)
+        {
+            throw new Exception("Invalid next player");
+        }
+    }
+
+    private void ValidateFirstMove(char symbol)
+    {
         if (_lastSymbol == ' ')
         {
-            //if player is X
             if (symbol == 'O')
             {
                 throw new Exception("Invalid first player");
             }
         }
-        
-        //if not first move but player repeated
-        if (symbol == _lastSymbol)
-        {
-            throw new Exception("Invalid next player");
-        }
-        //if not first move but play on an already played tile
-
-        if (_board.TileAt(x, y).Symbol != ' ')
-        {
-            throw new Exception("Invalid position");
-        }
-
-        // update game state
-        _lastSymbol = symbol;
-        _board.AddTileAt(symbol, x, y);
     }
 
     public char Winner()
     {
-        //if the positions in first row are taken
-        return _board.SamePlayerAtAllColumnsInRow();
+        return _board.SamePlayerAtAllColumnsInRows();
     }
 }

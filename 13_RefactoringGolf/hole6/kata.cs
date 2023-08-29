@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace RefactoringGolf.hole5;
+namespace RefactoringGolf.hole6;
 
 public class GameShould
 {
@@ -142,6 +142,16 @@ public class Tile
     public int X { get; set; }
     public int Y { get; set; }
     public char Symbol { get; set; }
+
+    public bool HasSameSymbol(Tile other)
+    {
+        return Symbol == other.Symbol;
+    }
+
+    public bool IsTaken()
+    {
+        return Symbol != ' ';
+    }
 }
 
 public class Board
@@ -168,7 +178,7 @@ public class Board
         _plays.Single(tile => tile.X == x && tile.Y == y).Symbol = symbol;
     }
 
-    public char CommonSymbolOnRow()
+    public char FindSymbolWhoTookARow()
     {
         for (var rowIndex = 0; rowIndex < 3; rowIndex++)
         {
@@ -189,17 +199,17 @@ public class Board
 
     private bool HasRowSameSymbol(int rowIndex)
     {
-        return (TileAt(rowIndex, 0).Symbol ==
-                TileAt(rowIndex, 1).Symbol &&
-                TileAt(rowIndex, 2).Symbol ==
-                TileAt(rowIndex, 1).Symbol);
+        return (TileAt(rowIndex, 0).HasSameSymbol(
+                TileAt(rowIndex, 1)) &&
+                TileAt(rowIndex, 2).HasSameSymbol(
+                TileAt(rowIndex, 1)));
     }
 
     private bool IsRowTaken(int rowIndex)
     {
-        return TileAt(rowIndex, 0).Symbol != ' ' &&
-               TileAt(rowIndex, 1).Symbol != ' ' &&
-               TileAt(rowIndex, 2).Symbol != ' ';
+        return TileAt(rowIndex, 0).IsTaken() &&
+               TileAt(rowIndex, 1).IsTaken() &&
+               TileAt(rowIndex, 2).IsTaken();
     }
 }
 
@@ -230,7 +240,7 @@ public class Game
 
     private void ValidatePositionIsEmpty(int x, int y)
     {
-        if (_board.TileAt(x, y).Symbol != ' ')
+        if (_board.TileAt(x, y).IsTaken())
         {
             throw new Exception("Invalid position");
         }
@@ -248,7 +258,6 @@ public class Game
     {
         if (_lastSymbol == ' ')
         {
-            //if player is X
             if (symbol == 'O')
             {
                 throw new Exception("Invalid first player");
@@ -258,7 +267,6 @@ public class Game
 
     public char Winner()
     {
-        //if the positions in first row are taken
-        return _board.CommonSymbolOnRow();
+        return _board.FindSymbolWhoTookARow();
     }
 }

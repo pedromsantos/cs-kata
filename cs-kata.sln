@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "11_GildedRose", "11_GildedR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "12_SmellyTicTacToe", "12_SmellyTicTacToe\12_SmellyTicTacToe.csproj", "{B9BE580E-5549-4A98-924A-101798F06368}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "13_RefactoringGolf", "13_RefactoringGolf\13_RefactoringGolf.csproj", "{3A62A064-C847-4599-9BD5-AC7DB2D9A015}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -84,5 +86,9 @@ Global
 		{B9BE580E-5549-4A98-924A-101798F06368}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9BE580E-5549-4A98-924A-101798F06368}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9BE580E-5549-4A98-924A-101798F06368}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A62A064-C847-4599-9BD5-AC7DB2D9A015}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A62A064-C847-4599-9BD5-AC7DB2D9A015}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A62A064-C847-4599-9BD5-AC7DB2D9A015}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A62A064-C847-4599-9BD5-AC7DB2D9A015}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

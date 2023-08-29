@@ -1,15 +1,10 @@
 using Xunit;
 
-namespace SmellyTicTacToe;
+namespace RefactoringGolf.hole2;
 
 public class GameShould
 {
-    private Game game;
-
-    public GameShould()
-    {
-        game = new Game();
-    }
+    private readonly Game game = new();
 
     [Fact]
     public void NotAllowPlayerOToPlayFirst()
@@ -151,7 +146,7 @@ public class Tile
 
 public class Board
 {
-    private List<Tile> _plays = new List<Tile>();
+    private List<Tile> _plays = new();
 
     public Board()
     {
@@ -179,6 +174,55 @@ public class Board
 
         _plays.Single(tile => tile.X == x && tile.Y == y).Symbol = symbol;
     }
+
+    public char SamePlayerAtAllColumnsInRows()
+    {
+        if (this.TileAt(0, 0).Symbol != ' ' &&
+            this.TileAt(0, 1).Symbol != ' ' &&
+            this.TileAt(0, 2).Symbol != ' ')
+        {
+            //if first row is full with same symbol
+            if (this.TileAt(0, 0).Symbol ==
+                this.TileAt(0, 1).Symbol &&
+                this.TileAt(0, 2).Symbol ==
+                this.TileAt(0, 1).Symbol)
+            {
+                return this.TileAt(0, 0).Symbol;
+            }
+        }
+
+        //if the positions in first row are taken
+        if (this.TileAt(1, 0).Symbol != ' ' &&
+            this.TileAt(1, 1).Symbol != ' ' &&
+            this.TileAt(1, 2).Symbol != ' ')
+        {
+            //if middle row is full with same symbol
+            if (this.TileAt(1, 0).Symbol ==
+                this.TileAt(1, 1).Symbol &&
+                this.TileAt(1, 2).Symbol ==
+                this.TileAt(1, 1).Symbol)
+            {
+                return this.TileAt(1, 0).Symbol;
+            }
+        }
+
+        //if the positions in first row are taken
+        if (this.TileAt(2, 0).Symbol != ' ' &&
+            this.TileAt(2, 1).Symbol != ' ' &&
+            this.TileAt(2, 2).Symbol != ' ')
+        {
+            //if middle row is full with same symbol
+            if (this.TileAt(2, 0).Symbol ==
+                this.TileAt(2, 1).Symbol &&
+                this.TileAt(2, 2).Symbol ==
+                this.TileAt(2, 1).Symbol)
+            {
+                return this.TileAt(2, 0).Symbol;
+            }
+        }
+
+        return ' ';
+    }
 }
 
 public class Game
@@ -197,13 +241,15 @@ public class Game
                 throw new Exception("Invalid first player");
             }
         }
+        
         //if not first move but player repeated
-        else if (symbol == _lastSymbol)
+        if (symbol == _lastSymbol)
         {
             throw new Exception("Invalid next player");
         }
         //if not first move but play on an already played tile
-        else if (_board.TileAt(x, y).Symbol != ' ')
+
+        if (_board.TileAt(x, y).Symbol != ' ')
         {
             throw new Exception("Invalid position");
         }
@@ -214,51 +260,8 @@ public class Game
     }
 
     public char Winner()
-    {   //if the positions in first row are taken
-        if (_board.TileAt(0, 0).Symbol != ' ' &&
-           _board.TileAt(0, 1).Symbol != ' ' &&
-           _board.TileAt(0, 2).Symbol != ' ')
-        {
-            //if first row is full with same symbol
-            if (_board.TileAt(0, 0).Symbol ==
-                _board.TileAt(0, 1).Symbol &&
-                _board.TileAt(0, 2).Symbol ==
-                _board.TileAt(0, 1).Symbol)
-            {
-                return _board.TileAt(0, 0).Symbol;
-            }
-        }
-
+    {
         //if the positions in first row are taken
-        if (_board.TileAt(1, 0).Symbol != ' ' &&
-           _board.TileAt(1, 1).Symbol != ' ' &&
-           _board.TileAt(1, 2).Symbol != ' ')
-        {
-            //if middle row is full with same symbol
-            if (_board.TileAt(1, 0).Symbol ==
-                _board.TileAt(1, 1).Symbol &&
-                _board.TileAt(1, 2).Symbol ==
-                _board.TileAt(1, 1).Symbol)
-            {
-                return _board.TileAt(1, 0).Symbol;
-            }
-        }
-
-        //if the positions in first row are taken
-        if (_board.TileAt(2, 0).Symbol != ' ' &&
-           _board.TileAt(2, 1).Symbol != ' ' &&
-           _board.TileAt(2, 2).Symbol != ' ')
-        {
-            //if middle row is full with same symbol
-            if (_board.TileAt(2, 0).Symbol ==
-                _board.TileAt(2, 1).Symbol &&
-                _board.TileAt(2, 2).Symbol ==
-                _board.TileAt(2, 1).Symbol)
-            {
-                return _board.TileAt(2, 0).Symbol;
-            }
-        }
-
-        return ' ';
+        return _board.SamePlayerAtAllColumnsInRows();
     }
 }

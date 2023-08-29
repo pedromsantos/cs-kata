@@ -1,15 +1,10 @@
 using Xunit;
 
-namespace SmellyTicTacToe;
+namespace RefactoringGolf.hole1;
 
 public class GameShould
 {
-    private Game game;
-
-    public GameShould()
-    {
-        game = new Game();
-    }
+    private readonly Game game = new();
 
     [Fact]
     public void NotAllowPlayerOToPlayFirst()
@@ -151,7 +146,7 @@ public class Tile
 
 public class Board
 {
-    private List<Tile> _plays = new List<Tile>();
+    private List<Tile> _plays = new();
 
     public Board()
     {

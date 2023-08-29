@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace RefactoringGolf.hole6;
+namespace RefactoringGolf.hole7;
 
 public class GameShould
 {
@@ -137,11 +137,47 @@ public class GameShould
     }
 }
 
+public enum Symbol
+{
+    Empty,
+    X,
+    O
+}
+
+public static class SymbolExtensions
+{
+    public static Symbol ToEnum(this char symbol)
+    {
+        if (symbol == 'X') return Symbol.X;
+        if (symbol == 'O') return Symbol.O;
+        return Symbol.Empty;
+    }
+
+    public static char ToChar(this Symbol symbol)
+    {
+        if (symbol == Symbol.X) return 'X';
+        if (symbol == Symbol.O) return 'O';
+        return ' ';
+    }
+}
+
 public class Tile
 {
-    public int X { get; set; }
-    public int Y { get; set; }
-    public char Symbol { get; set; }
+    public int X { get; private set; }
+    public int Y { get; private set; }
+    public Symbol Symbol { get; set; }
+
+    public Tile(int x, int y, char symbol = ' ')
+     :this(x,y, symbol.ToEnum())
+    {
+    }
+
+    public Tile(int x, int y, Symbol symbol)
+    {
+        X = x;
+        Y = y;
+        Symbol = symbol;
+    }
 
     public bool HasSameSymbol(Tile other)
     {
@@ -150,7 +186,12 @@ public class Tile
 
     public bool IsTaken()
     {
-        return Symbol != ' ';
+        return Symbol != Symbol.Empty;
+    }
+
+    public char GetSymbol()
+    {
+        return Symbol.ToChar();
     }
 }
 
@@ -164,7 +205,7 @@ public class Board
         {
             for (int j = 0; j < 3; j++)
             {
-                _plays.Add(new Tile { X = i, Y = j, Symbol = ' ' });
+                _plays.Add(new Tile(x: i, y: j, symbol: Symbol.Empty));
             }
         }
     }
@@ -175,7 +216,7 @@ public class Board
 
     public void AddTileAt(char symbol, int x, int y)
     {
-        _plays.Single(tile => tile.X == x && tile.Y == y).Symbol = symbol;
+        _plays.Single(tile => tile.X == x && tile.Y == y).Symbol = symbol.ToEnum();
     }
 
     public char FindSymbolWhoTookARow()
@@ -184,7 +225,7 @@ public class Board
         {
             if (IsRowTakenWithSymbol(rowIndex))
             {
-                return TileAt(rowIndex, 0).Symbol;
+                return TileAt(rowIndex, 0).GetSymbol();
             } 
         }
             
@@ -240,7 +281,7 @@ public class Game
 
     private void ValidatePositionIsEmpty(int x, int y)
     {
-        if (_board.TileAt(x, y).Symbol != ' ')
+        if (_board.TileAt(x, y).IsTaken())
         {
             throw new Exception("Invalid position");
         }
@@ -258,7 +299,6 @@ public class Game
     {
         if (_lastSymbol == ' ')
         {
-            //if player is X
             if (symbol == 'O')
             {
                 throw new Exception("Invalid first player");
@@ -268,7 +308,6 @@ public class Game
 
     public char Winner()
     {
-        //if the positions in first row are taken
         return _board.FindSymbolWhoTookARow();
     }
 }

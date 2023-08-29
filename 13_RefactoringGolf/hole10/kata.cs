@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace RefactoringGolf.hole9;
+namespace RefactoringGolf.hole10;
 
 public static class SymbolExtensions
 {
@@ -16,6 +16,40 @@ public static class SymbolExtensions
         if (symbol == Symbol.X) return 'X';
         if (symbol == Symbol.O) return 'O';
         return ' ';
+    }
+}
+
+public static class RowExtensions
+{
+    public static Row RowToEnum(this int row)
+    {
+        if (row == 0) return Row.Top;
+        if (row == 1) return Row.Middle;
+        return Row.Bottom;
+    }
+
+    public static int ToInt(this Row row)
+    {
+        if (row == Row.Top) return 0;
+        if (row == Row.Middle) return 1;
+        return 2;
+    }
+}
+
+public static class ColumnExtensions
+{
+    public static Column ColumnToEnum(this int column)
+    {
+        if (column == 0) return Column.Left;
+        if (column == 1) return Column.Center;
+        return Column.Rigth;
+    }
+
+    public static int ToInt(this Column column)
+    {
+        if (column == Column.Left) return 0;
+        if (column == Column.Center) return 1;
+        return 2;
     }
 }
 
@@ -161,16 +195,30 @@ public enum Symbol
     O
 }
 
+public enum Row
+{
+    Top,
+    Middle,
+    Bottom
+}
+
+public enum Column 
+{
+    Left,
+    Center,
+    Rigth
+}
+
 public class Tile
 {
-    public int X { get; }
-    public int Y { get; }
+    public Row X { get; }
+    public Column Y { get; }
     public Symbol Symbol { get; set; }
 
-    public Tile(int x, int y, Symbol symbol)
+    public Tile(int x, int y, Symbol symbol = Symbol.Empty) 
     {
-        X = x;
-        Y = y;
+        X = x.RowToEnum();
+        Y = y.ColumnToEnum();
         Symbol = symbol;
     }
 
@@ -183,6 +231,11 @@ public class Tile
     {
         return Symbol != Symbol.Empty;
     }
+
+    public bool HasSamePosition(Tile other)
+    {
+        return X == other.X && Y == other.Y;
+    }
 }
 
 public class Board
@@ -191,22 +244,22 @@ public class Board
 
     public Board()
     {
-        for (int i = 0; i < 3; i++)
+        for (int row = 0; row < 3; row++)
         {
-            for (int j = 0; j < 3; j++)
+            for (int column = 0; column < 3; column++)
             {
-                _plays.Add(new Tile(x: i, y: j, symbol: Symbol.Empty));
+                _plays.Add(new Tile(row, column));
             }
         }
     }
     public Tile TileAt(int x, int y)
     {
-        return _plays.Single(tile => tile.X == x && tile.Y == y);
+        return _plays.Single(tile => tile.HasSamePosition((new Tile(x,y))));
     }
 
     public void AddTileAt(int x, int y, Symbol symbol)
     {
-        _plays.Single(tile => tile.X == x && tile.Y == y).Symbol = symbol;
+        TileAt(x,y).Symbol = symbol;
     }
 
     public Symbol FindSymbolWhoTookARow()

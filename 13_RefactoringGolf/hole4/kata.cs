@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace RefactoringGolf.hole3;
+namespace RefactoringGolf.hole4;
 
 public class GameShould
 {
@@ -168,52 +168,22 @@ public class Board
         _plays.Single(tile => tile.X == x && tile.Y == y).Symbol = symbol;
     }
 
-    public char SamePlayerAtAllColumnsInRows()
+    public char CommonSymbolOnRow()
     {
-        if (this.TileAt(0, 0).Symbol != ' ' &&
-            this.TileAt(0, 1).Symbol != ' ' &&
-            this.TileAt(0, 2).Symbol != ' ')
+        for (var rowIndex = 0; rowIndex < 3; rowIndex++)
         {
-            //if first row is full with same symbol
-            if (this.TileAt(0, 0).Symbol ==
-                this.TileAt(0, 1).Symbol &&
-                this.TileAt(0, 2).Symbol ==
-                this.TileAt(0, 1).Symbol)
+            if (TileAt(rowIndex, 0).Symbol != ' ' &&
+                TileAt(rowIndex, 1).Symbol != ' ' &&
+                TileAt(rowIndex, 2).Symbol != ' ' &&
+                TileAt(rowIndex, 0).Symbol ==
+                TileAt(rowIndex, 1).Symbol &&
+                TileAt(rowIndex, 2).Symbol ==
+                TileAt(rowIndex, 1).Symbol)
             {
-                return this.TileAt(0, 0).Symbol;
-            }
+                return TileAt(rowIndex, 0).Symbol;
+            } 
         }
-
-        //if the positions in first row are taken
-        if (this.TileAt(1, 0).Symbol != ' ' &&
-            this.TileAt(1, 1).Symbol != ' ' &&
-            this.TileAt(1, 2).Symbol != ' ')
-        {
-            //if middle row is full with same symbol
-            if (this.TileAt(1, 0).Symbol ==
-                this.TileAt(1, 1).Symbol &&
-                this.TileAt(1, 2).Symbol ==
-                this.TileAt(1, 1).Symbol)
-            {
-                return this.TileAt(1, 0).Symbol;
-            }
-        }
-
-        //if the positions in first row are taken
-        if (this.TileAt(2, 0).Symbol != ' ' &&
-            this.TileAt(2, 1).Symbol != ' ' &&
-            this.TileAt(2, 2).Symbol != ' ')
-        {
-            //if middle row is full with same symbol
-            if (this.TileAt(2, 0).Symbol ==
-                this.TileAt(2, 1).Symbol &&
-                this.TileAt(2, 2).Symbol ==
-                this.TileAt(2, 1).Symbol)
-            {
-                return this.TileAt(2, 0).Symbol;
-            }
-        }
-
+            
         return ' ';
     }
 }
@@ -225,36 +195,53 @@ public class Game
 
     public void Play(char symbol, int x, int y)
     {
-        //if first move
+        ValidateFirstMove(symbol);
+        ValidatePlayer(symbol);
+        ValidatePositionIsEmpty(x, y);
+
+        UpdateLastPlayer(symbol);
+        UpdateBoard(symbol, x, y);
+    }
+
+    private void UpdateBoard(char symbol, int x, int y)
+    {
+        _board.AddTileAt(symbol, x, y);
+    }
+
+    private void UpdateLastPlayer(char symbol)
+    {
+        _lastSymbol = symbol;
+    }
+
+    private void ValidatePositionIsEmpty(int x, int y)
+    {
+        if (_board.TileAt(x, y).Symbol != ' ')
+        {
+            throw new Exception("Invalid position");
+        }
+    }
+
+    private void ValidatePlayer(char symbol)
+    {
+        if (symbol == _lastSymbol)
+        {
+            throw new Exception("Invalid next player");
+        }
+    }
+
+    private void ValidateFirstMove(char symbol)
+    {
         if (_lastSymbol == ' ')
         {
-            //if player is X
             if (symbol == 'O')
             {
                 throw new Exception("Invalid first player");
             }
         }
-        
-        //if not first move but player repeated
-        if (symbol == _lastSymbol)
-        {
-            throw new Exception("Invalid next player");
-        }
-        //if not first move but play on an already played tile
-
-        if (_board.TileAt(x, y).Symbol != ' ')
-        {
-            throw new Exception("Invalid position");
-        }
-
-        // update game state
-        _lastSymbol = symbol;
-        _board.AddTileAt(symbol, x, y);
     }
 
     public char Winner()
     {
-        //if the positions in first row are taken
-        return _board.SamePlayerAtAllColumnsInRows();
+        return _board.CommonSymbolOnRow();
     }
 }

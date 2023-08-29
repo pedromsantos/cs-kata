@@ -1,18 +1,18 @@
 using Xunit;
 
-namespace RefactoringGolf.hole12;
+namespace RefactoringGolf.hole13;
 
 public class GameShould
 {
-    private readonly Game game = new();
+    private readonly Game _game = new();
 
     [Fact]
     public void NotAllowPlayerOToPlayFirst()
     {
         var wrongPlay = () =>
         {
-            Symbol newSymbol = Symbol.O;
-            game.Play(new Tile(new Coordinate(0, 0), newSymbol));
+            Player newPlayer = Player.O;
+            _game.Play(new Tile(new Coordinate(0, 0), newPlayer));
         };
 
         var exception = Assert.Throws<Exception>(wrongPlay);
@@ -22,11 +22,11 @@ public class GameShould
     [Fact]
     public void NotAllowPlayerXToPlayTwiceInARow()
     {
-        game.Play(new Tile(new Coordinate(0, 0), Symbol.X));
+        _game.Play(new Tile(new Coordinate(0, 0), Player.X));
 
         var wrongPlay = () =>
         {
-            game.Play(new Tile(new Coordinate(1, 0), Symbol.X));
+            _game.Play(new Tile(new Coordinate(1, 0), Player.X));
         };
 
         var exception = Assert.Throws<Exception>(wrongPlay);
@@ -36,11 +36,11 @@ public class GameShould
     [Fact]
     public void NotAllowPlayerToPlayInLastPlayedPosition()
     {
-        game.Play(new Tile(new Coordinate(0, 0), Symbol.X));
+        _game.Play(new Tile(new Coordinate(0, 0), Player.X));
 
         var wrongPlay = () =>
         {
-            game.Play(new Tile(new Coordinate(0, 0), Symbol.O));
+            _game.Play(new Tile(new Coordinate(0, 0), Player.O));
         };
 
         var exception = Assert.Throws<Exception>(wrongPlay);
@@ -50,13 +50,12 @@ public class GameShould
     [Fact]
     public void NotAllowPlayerToPlayInAnyPlayedPosition()
     {
-        game.Play(new Tile(new Coordinate(0, 0), Symbol.X));
-        Symbol newSymbol1 = Symbol.O;
-        game.Play(new Tile(new Coordinate(1, 0), newSymbol1));
+        _game.Play(new Tile(new Coordinate(0, 0), Player.X));
+        _game.Play(new Tile(new Coordinate(1, 0), Player.O));
 
         var wrongPlay = () =>
         {
-            game.Play(new Tile(new Coordinate(0, 0), Symbol.X));
+            _game.Play(new Tile(new Coordinate(0, 0), Player.X));
         };
 
         var exception = Assert.Throws<Exception>(wrongPlay);
@@ -66,92 +65,92 @@ public class GameShould
     [Fact]
     public void DeclarePlayerXAsAWinnerIfThreeInTopRow()
     {
-        game.Play(new Tile(new Coordinate(0, 0), Symbol.X));
-        game.Play(new Tile(new Coordinate(1, 0), Symbol.O));
-        game.Play(new Tile(new Coordinate(0, 1), Symbol.X));
-        game.Play(new Tile(new Coordinate(1, 1), Symbol.O));
-        game.Play(new Tile(new Coordinate(0, 2), Symbol.X));
+        _game.Play(new Tile(new Coordinate(0, 0), Player.X));
+        _game.Play(new Tile(new Coordinate(1, 0), Player.O));
+        _game.Play(new Tile(new Coordinate(0, 1), Player.X));
+        _game.Play(new Tile(new Coordinate(1, 1), Player.O));
+        _game.Play(new Tile(new Coordinate(0, 2), Player.X));
 
-        var winner = game.Winner();
+        var winner = _game.Winner();
 
-        Assert.Equal(Symbol.X, winner);
+        Assert.Equal(Player.X, winner);
     }
 
     [Fact]
     public void DeclarePlayerOAsAWinnerIfThreeInTopRow()
     {
-        game.Play(new Tile(new Coordinate(2, 2), Symbol.X));
-        game.Play(new Tile(new Coordinate(0, 0), Symbol.O));
-        game.Play(new Tile(new Coordinate(1, 0), Symbol.X));
-        game.Play(new Tile(new Coordinate(0, 1), Symbol.O));
-        game.Play(new Tile(new Coordinate(1, 1), Symbol.X));
-        game.Play(new Tile(new Coordinate(0, 2), Symbol.O));
+        _game.Play(new Tile(new Coordinate(2, 2), Player.X));
+        _game.Play(new Tile(new Coordinate(0, 0), Player.O));
+        _game.Play(new Tile(new Coordinate(1, 0), Player.X));
+        _game.Play(new Tile(new Coordinate(0, 1), Player.O));
+        _game.Play(new Tile(new Coordinate(1, 1), Player.X));
+        _game.Play(new Tile(new Coordinate(0, 2), Player.O));
 
-        var winner = game.Winner();
+        var winner = _game.Winner();
 
-        Assert.Equal(Symbol.O, winner);
+        Assert.Equal(Player.O, winner);
     }
 
     [Fact]
     public void DeclarePlayerXAsAWinnerIfThreeInMiddleRow()
     {
-        game.Play(new Tile(new Coordinate(1, 0), Symbol.X));
-        game.Play(new Tile(new Coordinate(0, 0), Symbol.O));
-        game.Play(new Tile(new Coordinate(1, 1), Symbol.X));
-        game.Play(new Tile(new Coordinate(0, 1), Symbol.O));
-        game.Play(new Tile(new Coordinate(1, 2), Symbol.X));
+        _game.Play(new Tile(new Coordinate(1, 0), Player.X));
+        _game.Play(new Tile(new Coordinate(0, 0), Player.O));
+        _game.Play(new Tile(new Coordinate(1, 1), Player.X));
+        _game.Play(new Tile(new Coordinate(0, 1), Player.O));
+        _game.Play(new Tile(new Coordinate(1, 2), Player.X));
 
-        var winner = game.Winner();
+        var winner = _game.Winner();
 
-        Assert.Equal(Symbol.X, winner);
+        Assert.Equal(Player.X, winner);
     }
 
     [Fact]
     public void DeclarePlayerOAsAWinnerIfThreeInMiddleRow()
     {
-        game.Play(new Tile(new Coordinate(0, 0), Symbol.X));
-        game.Play(new Tile(new Coordinate(1, 0), Symbol.O));
-        game.Play(new Tile(new Coordinate(2, 0), Symbol.X));
-        game.Play(new Tile(new Coordinate(1, 1), Symbol.O));
-        game.Play(new Tile(new Coordinate(2, 1), Symbol.X));
-        game.Play(new Tile(new Coordinate(1, 2), Symbol.O));
+        _game.Play(new Tile(new Coordinate(0, 0), Player.X));
+        _game.Play(new Tile(new Coordinate(1, 0), Player.O));
+        _game.Play(new Tile(new Coordinate(2, 0), Player.X));
+        _game.Play(new Tile(new Coordinate(1, 1), Player.O));
+        _game.Play(new Tile(new Coordinate(2, 1), Player.X));
+        _game.Play(new Tile(new Coordinate(1, 2), Player.O));
 
-        var winner = game.Winner();
+        var winner = _game.Winner();
 
-        Assert.Equal(Symbol.O, winner);
+        Assert.Equal(Player.O, winner);
     }
 
     [Fact]
     public void DeclarePlayerXAsAWinnerIfThreeInBottomRow()
     {
-        game.Play(new Tile(new Coordinate(2, 0), Symbol.X));
-        game.Play(new Tile(new Coordinate(0, 0), Symbol.O));
-        game.Play(new Tile(new Coordinate(2, 1), Symbol.X));
-        game.Play(new Tile(new Coordinate(0, 1), Symbol.O));
-        game.Play(new Tile(new Coordinate(2, 2), Symbol.X));
+        _game.Play(new Tile(new Coordinate(2, 0), Player.X));
+        _game.Play(new Tile(new Coordinate(0, 0), Player.O));
+        _game.Play(new Tile(new Coordinate(2, 1), Player.X));
+        _game.Play(new Tile(new Coordinate(0, 1), Player.O));
+        _game.Play(new Tile(new Coordinate(2, 2), Player.X));
 
-        var winner = game.Winner();
+        var winner = _game.Winner();
 
-        Assert.Equal(Symbol.X, winner);
+        Assert.Equal(Player.X, winner);
     }
 
     [Fact]
     public void DeclarePlayerOAsAWinnerIfThreeInBottomRow()
     {
-        game.Play(new Tile(new Coordinate(0, 0), Symbol.X));
-        game.Play(new Tile(new Coordinate(2, 0), Symbol.O));
-        game.Play(new Tile(new Coordinate(1, 0), Symbol.X));
-        game.Play(new Tile(new Coordinate(2, 1), Symbol.O));
-        game.Play(new Tile(new Coordinate(1, 1), Symbol.X));
-        game.Play(new Tile(new Coordinate(2, 2), Symbol.O));
+        _game.Play(new Tile(new Coordinate(0, 0), Player.X));
+        _game.Play(new Tile(new Coordinate(2, 0), Player.O));
+        _game.Play(new Tile(new Coordinate(1, 0), Player.X));
+        _game.Play(new Tile(new Coordinate(2, 1), Player.O));
+        _game.Play(new Tile(new Coordinate(1, 1), Player.X));
+        _game.Play(new Tile(new Coordinate(2, 2), Player.O));
 
-        var winner = game.Winner();
+        var winner = _game.Winner();
 
-        Assert.Equal(Symbol.O, winner);
+        Assert.Equal(Player.O, winner);
     }
 }
 
-public enum Symbol
+public enum Player
 {
     Empty,
     X,
@@ -174,12 +173,12 @@ public enum Column
 
 public class Coordinate
 {
-    private readonly Row row;
-    private readonly Column column;
+    private readonly Row _row;
+    private readonly Column _column;
 
     public Coordinate(int row, int column)
     {
-        this.row = row switch
+        this._row = row switch
         {
             0 => Row.Top,
             1 => Row.Middle,
@@ -187,7 +186,7 @@ public class Coordinate
             _ => throw new ArgumentOutOfRangeException(nameof(row), row, "Invalid row")
         };
 
-        this.column = column switch
+        this._column = column switch
         {
             0 => Column.Left,
             1 => Column.Center,
@@ -198,7 +197,7 @@ public class Coordinate
     
     private bool Equals(Coordinate other)
     {
-        return row == other.row && column == other.column;
+        return _row == other._row && _column == other._column;
     }
 
     public override bool Equals(object? obj)
@@ -210,47 +209,47 @@ public class Coordinate
 
     public override int GetHashCode()
     {
-        return HashCode.Combine((int)row, (int)column);
+        return HashCode.Combine((int)_row, (int)_column);
     }
 }
 
 
 public class Tile
 {
-    private readonly Coordinate coordinate;
+    private readonly Coordinate _coordinate;
     
-    public Symbol Symbol { get; private set; }
+    public Player Player { get; private set; }
 
-    public Tile(Coordinate coordinate, Symbol symbol = Symbol.Empty)
+    public Tile(Coordinate coordinate, Player player = Player.Empty)
     {
-        this.coordinate = coordinate;
-        Symbol = symbol;
+        this._coordinate = coordinate;
+        Player = player;
     }
 
-    public bool HasSameSymbol(Tile other)
+    public bool HasSamePlayer(Tile other)
     {
-        return Symbol == other.Symbol;
+        return Player == other.Player;
     }
 
     public bool IsTaken()
     {
-        return Symbol != Symbol.Empty;
+        return Player != Player.Empty;
     }
 
     public bool HasSamePosition(Tile other)
     {
-        return Equals(coordinate, other.coordinate);
+        return Equals(_coordinate, other._coordinate);
     }
 
-    public void UpdateSymbol(Symbol newSymbol)
+    public void UpdatePlayer(Player newPlayer)
     {
-        Symbol = newSymbol;
+        Player = newPlayer;
     }
 }
 
 public class Board
 {
-    private List<Tile> _plays = new();
+    private readonly List<Tile> _plays = new();
 
     public Board()
     {
@@ -269,33 +268,33 @@ public class Board
 
     public void AddTileAt(Tile newTile)
     {
-        TileAt(newTile).UpdateSymbol(newTile.Symbol);
+        TileAt(newTile).UpdatePlayer(newTile.Player);
     }
 
-    public Symbol FindSymbolWhoTookARow()
+    public Player FindPlayerWhoTookARow()
     {
         for (var rowIndex = 0; rowIndex < 3; rowIndex++)
         {
-            if (IsRowTakenWithSymbol(rowIndex))
+            if (IsRowTakenWithPlayer(rowIndex))
             {
-                return TileAt(new Tile(new Coordinate(rowIndex, 0))).Symbol;
+                return TileAt(new Tile(new Coordinate(rowIndex, 0))).Player;
             } 
         }
             
-        return Symbol.Empty;
+        return Player.Empty;
     }
 
-    private bool IsRowTakenWithSymbol(int rowIndex)
+    private bool IsRowTakenWithPlayer(int rowIndex)
     {
         return IsRowTaken(rowIndex) &&
-               HasRowSameSymbol(rowIndex);
+               HasRowSamePlayer(rowIndex);
     }
 
-    private bool HasRowSameSymbol(int rowIndex)
+    private bool HasRowSamePlayer(int rowIndex)
     {
-        return (TileAt(new Tile(new Coordinate(rowIndex, 0))).HasSameSymbol(
+        return (TileAt(new Tile(new Coordinate(rowIndex, 0))).HasSamePlayer(
                 TileAt(new Tile(new Coordinate(rowIndex, 1)))) &&
-                TileAt(new Tile(new Coordinate(rowIndex, 2))).HasSameSymbol(
+                TileAt(new Tile(new Coordinate(rowIndex, 2))).HasSamePlayer(
                 TileAt(new Tile(new Coordinate(rowIndex, 1)))));
     }
 
@@ -309,16 +308,16 @@ public class Board
 
 public class Game
 {
-    private Board _board = new();
-    private Symbol _lastSymbol = Symbol.Empty;
+    private readonly Board _board = new();
+    private Player _lastPlayer = Player.Empty;
 
     public void Play(Tile newTile)
     {
-        ValidateFirstMove(newTile.Symbol);
-        ValidatePlayer(newTile.Symbol);
+        ValidateFirstMove(newTile.Player);
+        ValidatePlayer(newTile.Player);
         ValidatePositionIsEmpty(newTile);
 
-        UpdateLastPlayer(newTile.Symbol);
+        UpdateLastPlayer(newTile.Player);
         UpdateBoard(newTile);
     }
 
@@ -327,37 +326,37 @@ public class Game
         _board.AddTileAt(newTile);
     }
 
-    private void UpdateLastPlayer(Symbol symbol)
+    private void UpdateLastPlayer(Player newPlayer)
     {
-        _lastSymbol = symbol;
+        _lastPlayer = newPlayer;
     }
 
-    private void ValidatePositionIsEmpty(Tile other)
+    private void ValidatePositionIsEmpty(Tile tile)
     {
-        if (_board.TileAt(other).IsTaken())
+        if (_board.TileAt(tile).IsTaken())
         {
             throw new Exception("Invalid position");
         }
     }
 
-    private void ValidatePlayer(Symbol symbol)
+    private void ValidatePlayer(Player player)
     {
-        if (symbol == _lastSymbol)
+        if (player == _lastPlayer)
         {
             throw new Exception("Invalid next player");
         }
     }
 
-    private void ValidateFirstMove(Symbol symbol)
+    private void ValidateFirstMove(Player player)
     {
-        if (_lastSymbol == Symbol.Empty && symbol == Symbol.O)
+        if (_lastPlayer == Player.Empty && player == Player.O)
         {
             throw new Exception("Invalid first player");
         }
     }
 
-    public Symbol Winner()
+    public Player Winner()
     {
-        return _board.FindSymbolWhoTookARow();
+        return _board.FindPlayerWhoTookARow();
     }
 }
