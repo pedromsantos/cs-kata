@@ -283,9 +283,9 @@ public class Board
 
     private bool IsRowTaken(int rowIndex)
     {
-        return TileAt(TileAtRowLeftColumn(rowIndex)).IsTaken() &&
-               TileAt(TileAtRowCenterColumn(rowIndex)).IsTaken() &&
-               TileAt(TileAtRowRightColumn(rowIndex)).IsTaken();
+        return TileAtRowLeftColumn(rowIndex).IsTaken() &&
+               TileAtRowCenterColumn(rowIndex).IsTaken() &&
+               TileAtRowRightColumn(rowIndex).IsTaken();
     }
     
     private bool IsSamePlayerInRow(int rowIndex)
