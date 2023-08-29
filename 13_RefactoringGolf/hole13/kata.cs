@@ -169,15 +169,25 @@ public class Coordinate
 
     public Coordinate(int row, int column)
     {
-        _row = row switch
-        {
-            0 => Row.Top,
-            1 => Row.Middle,
-            2 => Row.Bottom,
-            _ => throw new ArgumentOutOfRangeException(nameof(row), row, "Invalid row")
-        };
+        _row = ToRow(row);
+        _column = ToColumn(column);
+    }
 
-        _column = column switch
+    public override bool Equals(object? obj)
+    {
+        if (ReferenceEquals(null, obj)) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        return obj.GetType() == GetType() && Equals((Coordinate)obj);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine((int)_row, (int)_column);
+    }
+    
+    private static Column ToColumn(int column)
+    {
+        return column switch
         {
             0 => Column.Left,
             1 => Column.Center,
@@ -185,22 +195,21 @@ public class Coordinate
             _ => throw new ArgumentOutOfRangeException(nameof(column), column, "Invalid column")
         };
     }
+
+    private static Row ToRow(int row)
+    {
+        return row switch
+        {
+            0 => Row.Top,
+            1 => Row.Middle,
+            2 => Row.Bottom,
+            _ => throw new ArgumentOutOfRangeException(nameof(row), row, "Invalid row")
+        };
+    }
     
     private bool Equals(Coordinate other)
     {
         return _row == other._row && _column == other._column;
-    }
-
-    public override bool Equals(object? obj)
-    {
-        if (ReferenceEquals(null, obj)) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == this.GetType() && Equals((Coordinate)obj);
-    }
-
-    public override int GetHashCode()
-    {
-        return HashCode.Combine((int)_row, (int)_column);
     }
 }
 
