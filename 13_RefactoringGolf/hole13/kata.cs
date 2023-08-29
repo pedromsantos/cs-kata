@@ -320,7 +320,7 @@ public class Game
     public void Play(Tile tile)
     {
         ValidatePlayer(tile.Player);
-        ValidatePositionIsEmpty(tile);
+        ValidatePosition(tile);
 
         UpdateLastPlayer(tile.Player);
         UpdateBoard(tile);
@@ -341,7 +341,7 @@ public class Game
         _lastPlayer = player;
     }
 
-    private void ValidatePositionIsEmpty(Tile tile)
+    private void ValidatePosition(Tile tile)
     {
         if (_board.TileAt(tile).IsTaken())
         {
