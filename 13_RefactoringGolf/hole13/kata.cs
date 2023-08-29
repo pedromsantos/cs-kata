@@ -9,13 +9,10 @@ public class GameShould
     [Fact]
     public void NotAllowPlayerOToPlayFirst()
     {
-        var wrongPlay = () =>
+        var exception = Assert.Throws<Exception>(() =>
         {
-            Player newPlayer = Player.O;
-            _game.Play(new Tile(new Coordinate(0, 0), newPlayer));
-        };
-
-        var exception = Assert.Throws<Exception>(wrongPlay);
+            _game.Play(new Tile(new Coordinate(0, 0), Player.O));
+        });
         Assert.Equal("Invalid first player", exception.Message);
     }
 
@@ -24,12 +21,10 @@ public class GameShould
     {
         _game.Play(new Tile(new Coordinate(0, 0), Player.X));
 
-        var wrongPlay = () =>
+        var exception = Assert.Throws<Exception>(() =>
         {
             _game.Play(new Tile(new Coordinate(1, 0), Player.X));
-        };
-
-        var exception = Assert.Throws<Exception>(wrongPlay);
+        });
         Assert.Equal("Invalid next player", exception.Message);
     }
 
@@ -38,12 +33,10 @@ public class GameShould
     {
         _game.Play(new Tile(new Coordinate(0, 0), Player.X));
 
-        var wrongPlay = () =>
+        var exception = Assert.Throws<Exception>(() =>
         {
             _game.Play(new Tile(new Coordinate(0, 0), Player.O));
-        };
-
-        var exception = Assert.Throws<Exception>(wrongPlay);
+        });
         Assert.Equal("Invalid position", exception.Message);
     }
 
@@ -53,12 +46,10 @@ public class GameShould
         _game.Play(new Tile(new Coordinate(0, 0), Player.X));
         _game.Play(new Tile(new Coordinate(1, 0), Player.O));
 
-        var wrongPlay = () =>
+        var exception = Assert.Throws<Exception>(() =>
         {
             _game.Play(new Tile(new Coordinate(0, 0), Player.X));
-        };
-
-        var exception = Assert.Throws<Exception>(wrongPlay);
+        });
         Assert.Equal("Invalid position", exception.Message);
     }
 
@@ -178,7 +169,7 @@ public class Coordinate
 
     public Coordinate(int row, int column)
     {
-        this._row = row switch
+        _row = row switch
         {
             0 => Row.Top,
             1 => Row.Middle,
@@ -186,7 +177,7 @@ public class Coordinate
             _ => throw new ArgumentOutOfRangeException(nameof(row), row, "Invalid row")
         };
 
-        this._column = column switch
+        _column = column switch
         {
             0 => Column.Left,
             1 => Column.Center,
