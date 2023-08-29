@@ -331,16 +331,14 @@ public class Game
         return _board.FindPlayerWhoTookARow();
     }
 
-    private void UpdateBoard(Tile tile)
+    private void ValidatePlayer(Player player)
     {
-        _board.AddTileAt(tile);
+        if (player == _lastPlayer)
+        {
+            throw new Exception("Invalid player");
+        }
     }
-
-    private void UpdateLastPlayer(Player player)
-    {
-        _lastPlayer = player;
-    }
-
+    
     private void ValidatePosition(Tile tile)
     {
         if (_board.TileAt(tile).IsTaken())
@@ -348,12 +346,14 @@ public class Game
             throw new Exception("Invalid position");
         }
     }
-
-    private void ValidatePlayer(Player player)
+    
+    private void UpdateLastPlayer(Player player)
     {
-        if (player == _lastPlayer)
-        {
-            throw new Exception("Invalid player");
-        }
+        _lastPlayer = player;
+    }
+    
+    private void UpdateBoard(Tile tile)
+    {
+        _board.AddTileAt(tile);
     }
 }
