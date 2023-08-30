@@ -1,9 +1,13 @@
-namespace _17_ShoppingCart;
+namespace ShoppingCartKata;
 
-public class UnitTest1
-{
-    [Fact]
-    public void Test1()
-    {
-    }
+public interface IAddProductToCartUseCase {
+    void Execute(string cartId, string productId);
+}
+
+public interface ICreateEmptyCartUseCase {
+    void Execute(string cartId, string customerName);
+}
+
+public interface ICalculateCartPriceUseCase {
+    int Query(string cartId);
 }

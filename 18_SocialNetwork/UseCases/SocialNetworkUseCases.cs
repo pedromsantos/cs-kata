@@ -1,4 +1,4 @@
-export interface UseCase {
-  execute(command: string): void;
-  query(query: string): string;
+public interface IUseCase {
+  void Execute(string command);
+  string query(string query);
 }

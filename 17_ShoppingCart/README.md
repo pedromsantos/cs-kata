@@ -39,10 +39,10 @@ Your tests code should be a first level citizen, treat it as production code.
 
 - Two different offers will be used to boost sales:
   - buy one get one free (aka two for the price of one)
-  - multibuy discount (buying at least a quantity of a product its unit price is discounted)
+  - multi-buy discount (buying at least a quantity of a product its unit price is discounted)
 - The promotional strategy planned by the company is to apply:
   - buy one get one free to `VOUCHER` items
-  - multibuy discount to `TSHIRT` items for a quantity of 3 or more and reducing the unit price to 19.00 €
+  - multi-buy discount to `TSHIRT` items for a quantity of 3 or more and reducing the unit price to 19.00 €
 
 ### Extension examples
 

@@ -105,14 +105,14 @@ SASASASAA\n
 
 ### Interfaces
 
-```typescript
-interface Rover {
-  execute(): void;
+```csharp
+public interface IRover {
+  void Execute(string instructions);
 }
 
-interface Radio {
-  send(message: string): void;
-  receive(): string;
+public interface IRadio {
+  void Send(string message);
+  string Receive();
 }
 ```
 
