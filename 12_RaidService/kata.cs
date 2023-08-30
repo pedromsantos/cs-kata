@@ -4,41 +4,25 @@ public class RaidService
 {
     public List<Raid> GetRaidsByGuildMember(GuildMember guildMember)
     {
-        List<Raid> raidList = new List<Raid>();
-        GuildMember loggedGuildMember = GuildMemberSession.GetLoggedGuildMember();
-        bool isFriend = false;
+        var loggedGuildMember = Session.GetLoggedGuildMember();
 
-        if (loggedGuildMember != null)
+        if (loggedGuildMember == null) throw new NullReferenceException();
+        
+        if (guildMember.GetFriends().Any(member => member == loggedGuildMember))
         {
-            foreach (GuildMember fellowMember in guildMember.GetFriends())
-            {
-                if (fellowMember == loggedGuildMember)
-                {
-                    isFriend = true;
-                    break;
-                }
-            }
-
-            if (isFriend)
-            {
-                raidList = RaidDAO.FindRaidsByGuildMember(guildMember);
-            }
-
-            return raidList;
+            return RaidDao.FindRaidsByGuildMember(guildMember);
         }
-        else
-        {
-            throw new GuildMemberNotLoggedInException();
-        }
+
+        return new List<Raid>();
     }
 }
 
 public class GuildMember
 {
-    private readonly List<Raid> _raids = new List<Raid>();
-    private readonly List<GuildMember> _friends = new List<GuildMember>();
+    private readonly List<Raid> _raids = new();
+    private readonly List<GuildMember> _friends = new();
 
-    public List<GuildMember> GetFriends()
+    public IEnumerable<GuildMember> GetFriends()
     {
         return _friends;
     }
@@ -53,30 +37,26 @@ public class GuildMember
         _raids.Add(raid);
     }
 
-    public List<Raid> GetRaids()
+    public IEnumerable<Raid> GetRaids()
     {
         return _raids;
     }
 }
 
-public class GuildMemberSession
+public class Session
 {
     public static GuildMember GetLoggedGuildMember()
     {
-        throw new CollaboratorCallException();
+        throw new NotImplementedException();
     }
 }
 
-public class RaidDAO
+public static class RaidDao
 {
     public static List<Raid> FindRaidsByGuildMember(GuildMember guildMember)
     {
-        throw new CollaboratorCallException();
+        throw new NotImplementedException();
     }
 }
 
 public class Raid { }
-
-public class GuildMemberNotLoggedInException : Exception { }
-
-public class CollaboratorCallException : Exception { }
