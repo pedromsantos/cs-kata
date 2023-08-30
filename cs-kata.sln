@@ -25,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tennis", "10_Tennis\Tennis.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GildedRose", "11_GildedRose\GildedRose.csproj", "{D4CA7C73-4E0C-4ED1-8918-9425D45E1049}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaidService", "12_RaidService\RaidService.csproj", "{2BB8916A-E0CE-40C4-A441-272360495094}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raid", "12_Raid\Raid.csproj", "{2BB8916A-E0CE-40C4-A441-272360495094}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RefactoringGolf", "13_RefactoringGolf\RefactoringGolf.csproj", "{9DCC252C-E855-4178-BEFA-ED27501E4861}"
 EndProject

@@ -1,16 +1,16 @@
-namespace RaidServiceKata;
+namespace RaidKata;
 
 public class RaidService
 {
-    public List<Raid> GetRaidsByGuildMember(GuildMember guildMember)
+    public List<Raid> GetRaidsByGuildMember(GuildMember other)
     {
-        var loggedGuildMember = Session.GetLoggedGuildMember();
+        var player = GuildDao.FindActivePlayer();
 
-        if (loggedGuildMember == null) throw new NullReferenceException();
-        
-        if (guildMember.GetFriends().Any(member => member == loggedGuildMember))
+        if (player == null) throw new NullReferenceException();
+
+        if (other.GetFriends().Any(member => member == player))
         {
-            return RaidDao.FindRaidsByGuildMember(guildMember);
+            return RaidDao.FindRaidsBy(other);
         }
 
         return new List<Raid>();
@@ -43,9 +43,9 @@ public class GuildMember
     }
 }
 
-public class Session
+public class GuildDao
 {
-    public static GuildMember GetLoggedGuildMember()
+    public static GuildMember FindActivePlayer()
     {
         throw new NotImplementedException();
     }
@@ -53,7 +53,7 @@ public class Session
 
 public static class RaidDao
 {
-    public static List<Raid> FindRaidsByGuildMember(GuildMember guildMember)
+    public static List<Raid> FindRaidsBy(GuildMember guildMember)
     {
         throw new NotImplementedException();
     }
