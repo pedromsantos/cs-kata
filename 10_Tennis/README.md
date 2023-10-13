@@ -58,8 +58,8 @@ All files                 |   86.28 |    67.74 |   96.61 |   86.03 |
 1. Tackle clutter by
    - Formatting the code, a simple and very effective technique
      - Format consistently and don’t force the reader to waste timed due to inconsistent formatting
-   - Renaming bad names on variables, arguments, instance variables, methods, and classes
-   - Renaming abbreviations to make them explicit
+   - Renaming bad names or abbreviations on variables, arguments, instance variables, methods, and classes
+     - <https://www.digdeeproots.com/articles/naming-process/>
 2. Tackle Comments and Dead Code by
    - Deleting useless comments
    - Deleting useful comments by extracting a method named after them
