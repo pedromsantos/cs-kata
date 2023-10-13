@@ -19,7 +19,18 @@ Refactor the code to improve its readability.
 - Make sure the tests have a good coverage
   - Use a code coverage tool to make sure code coverage by tests is very high
   - For this exercise code coverage is high (100%)
-    - Run `yarn test:ci` and check for yourself
+
+##### Execute tests
+
+```sh
+dotnet test
+```
+
+##### Execute tests with coverage
+
+```sh
+dotnet test --collect:"XPlat Code Coverage;IncludeTestAssembly=true;Format=cobertura"
+```
 
 ```txt
 --------------------------|---------|----------|---------|---------|-------------------
@@ -72,4 +83,4 @@ All files                 |   86.28 |    67.74 |   96.61 |   86.03 |
 
 ## Useful tools
 
-- <https://github.com/nicoespeon/abracadabra>
+Resharper or Rider
