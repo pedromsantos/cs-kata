@@ -26,7 +26,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Meziantou.Xunit.ParallelTestFramework" Version="2.1.0" />
-    <PackageReference Include="ApprovalTests" Version="4.2.2" />
+    <PackageReference Include="ApprovalTests" Version="5.9.0" />
   </ItemGroup>
 
   <ItemGroup>
