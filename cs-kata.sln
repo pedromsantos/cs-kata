@@ -23,7 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarsRover", "9_MarsRover\Ma
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tennis", "10_Tennis\Tennis.csproj", "{77BB7E48-741C-412B-8349-DC9C39B87808}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GildedRose", "11_GildedRose\GildedRose.csproj", "{D4CA7C73-4E0C-4ED1-8918-9425D45E1049}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GildedRoseTests", "11_GildedRose\GildedRoseTests\GildedRoseTests.csproj", "{D4CA7C73-4E0C-4ED1-8918-9425D45E1049}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raid", "12_Raid\Raid.csproj", "{2BB8916A-E0CE-40C4-A441-272360495094}"
 EndProject
@@ -42,6 +42,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialNetwork", "19_SocialNetwork\SocialNetwork.csproj", "{30B38272-47A5-4C8A-804E-B09E92DB22AF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Katacombs", "20_Katacombs\Katacombs.csproj", "{F379754B-90C8-48EF-B037-D6DCB9D3AD97}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "11_GildedRose", "11_GildedRose", "{B558057E-7762-4809-A363-FD216603BC46}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GildedRoseApp", "11_GildedRose\GildedRoseApp\GildedRoseApp.csproj", "{8682C561-9EC2-4289-B2F1-1C6890044AAA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -132,5 +136,12 @@ Global
 		{F379754B-90C8-48EF-B037-D6DCB9D3AD97}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F379754B-90C8-48EF-B037-D6DCB9D3AD97}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F379754B-90C8-48EF-B037-D6DCB9D3AD97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8682C561-9EC2-4289-B2F1-1C6890044AAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8682C561-9EC2-4289-B2F1-1C6890044AAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8682C561-9EC2-4289-B2F1-1C6890044AAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8682C561-9EC2-4289-B2F1-1C6890044AAA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8682C561-9EC2-4289-B2F1-1C6890044AAA} = {B558057E-7762-4809-A363-FD216603BC46}
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,8 @@
+{
+  "stryker-config": {
+    "reporters": ["progress", "cleartext"],
+    "thresholds": { "high": 80, "low": 60, "break": 60 },
+    "mutate": ["kata.cs"],
+    "ignore-mutations": ["string", "Logical operators"]
+  }
+}

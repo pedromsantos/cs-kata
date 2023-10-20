@@ -26,6 +26,11 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Meziantou.Xunit.ParallelTestFramework" Version="2.1.0" />
+    <PackageReference Include="ApprovalTests" Version="4.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GildedRoseApp\GildedRoseApp.csproj" />
   </ItemGroup>
 
 </Project>
