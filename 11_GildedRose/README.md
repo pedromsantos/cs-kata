@@ -49,36 +49,36 @@ Write characterization tests to describe the code as is.
 
 ```csharp
 [UseReporter(typeof(DiffReporter))]
-    public class GildedRoseTest
+public class GildedRoseTest
+{
+    [Fact]
+    public void UpdateQuality()
     {
-        [Fact]
-        public void UpdateQuality()
-        {
-            string[] itemsName = {"Aged Brie", "foo","Backstage passes to a TAFKAL80ETC concert","Sulfuras, Hand of Ragnaros"};
-            int[] sellInValues = {-1,0, 1,6,11};
-            int[] qualityValues = {-1,0,1,49,50};
-            CombinationApprovals.VerifyAllCombinations(
-                doUpdateQuality,
-                itemsName,
-                sellInValues,
-                qualityValues);
-        }
-
-        private static string doUpdateQuality(string itemName, int sellIn, int quality)
-        {
-            IList<Item> Items = new List<Item> {new Item {Name = itemName, SellIn = sellIn, Quality = quality}};
-            GildedRoseKata.GildedRose app = new GildedRoseKata.GildedRose(Items);
-            app.UpdateQuality();
-
-            return ItemToString(Items[0]);
-        }
-
-
-        private static string ItemToString(Item item)
-        {
-            return $"{item.Name},{item.SellIn},{item.Quality}";
-        }
+        string[] itemsName = {"Aged Brie", "foo","Backstage passes to a TAFKAL80ETC concert","Sulfuras, Hand of Ragnaros"};
+        int[] sellInValues = {-1,0, 1,6,11};
+        int[] qualityValues = {-1,0,1,49,50};
+        CombinationApprovals.VerifyAllCombinations(
+            doUpdateQuality,
+            itemsName,
+            sellInValues,
+            qualityValues);
     }
+
+    private static string doUpdateQuality(string itemName, int sellIn, int quality)
+    {
+        IList<Item> Items = new List<Item> {new Item {Name = itemName, SellIn = sellIn, Quality = quality}};
+        GildedRoseKata.GildedRose app = new GildedRoseKata.GildedRose(Items);
+        app.UpdateQuality();
+
+        return ItemToString(Items[0]);
+    }
+
+
+    private static string ItemToString(Item item)
+    {
+        return $"{item.Name},{item.SellIn},{item.Quality}";
+    }
+}
 ```
 
 ### Fourth run - Refactor code
