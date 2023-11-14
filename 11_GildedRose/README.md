@@ -54,7 +54,7 @@ public class GildedRoseTest
     [Fact]
     public void UpdateQuality()
     {
-        string[] itemsName = {"Aged Brie", "foo","Backstage passes to a TAFKAL80ETC concert","Sulfuras, Hand of Ragnaros"};
+        string[] itemsNames= {"Aged Brie", "foo","Backstage passes to a TAFKAL80ETC concert","Sulfuras, Hand of Ragnaros"};
         int[] sellInValues = {-1,0, 1,6,11};
         int[] qualityValues = {-1,0,1,49,50};
         CombinationApprovals.VerifyAllCombinations(
