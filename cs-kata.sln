@@ -44,6 +44,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Katacombs", "20_Katacombs\Katacombs.csproj", "{F379754B-90C8-48EF-B037-D6DCB9D3AD97}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "11_GildedRose", "11_GildedRose", "{B558057E-7762-4809-A363-FD216603BC46}"
+	ProjectSection(SolutionItems) = preProject
+		11_GildedRose\README.md = 11_GildedRose\README.md
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GildedRoseApp", "11_GildedRose\GildedRoseApp\GildedRoseApp.csproj", "{8682C561-9EC2-4289-B2F1-1C6890044AAA}"
 EndProject
@@ -143,5 +146,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8682C561-9EC2-4289-B2F1-1C6890044AAA} = {B558057E-7762-4809-A363-FD216603BC46}
+		{D4CA7C73-4E0C-4ED1-8918-9425D45E1049} = {B558057E-7762-4809-A363-FD216603BC46}
 	EndGlobalSection
 EndGlobal
