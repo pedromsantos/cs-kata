@@ -1,20 +1,15 @@
 using Xunit;
 
-namespace SmellyTicTacToe;
+namespace SmellyTicTacToeKata;
 
 public class GameShould
 {
-    private Game game;
-
-    public GameShould()
-    {
-        game = new Game();
-    }
+    private readonly Game game = new();
 
     [Fact]
     public void NotAllowPlayerOToPlayFirst()
     {
-        Action wrongPlay = () => game.Play('O', 0, 0);
+        var wrongPlay = () => game.Play('O', 0, 0);
 
         var exception = Assert.Throws<Exception>(wrongPlay);
         Assert.Equal("Invalid first player", exception.Message);
@@ -25,7 +20,7 @@ public class GameShould
     {
         game.Play('X', 0, 0);
 
-        Action wrongPlay = () => game.Play('X', 1, 0);
+        var wrongPlay = () => game.Play('X', 1, 0);
 
         var exception = Assert.Throws<Exception>(wrongPlay);
         Assert.Equal("Invalid next player", exception.Message);
@@ -36,7 +31,7 @@ public class GameShould
     {
         game.Play('X', 0, 0);
 
-        Action wrongPlay = () => game.Play('O', 0, 0);
+        var wrongPlay = () => game.Play('O', 0, 0);
 
         var exception = Assert.Throws<Exception>(wrongPlay);
         Assert.Equal("Invalid position", exception.Message);
@@ -48,7 +43,7 @@ public class GameShould
         game.Play('X', 0, 0);
         game.Play('O', 1, 0);
 
-        Action wrongPlay = () => game.Play('X', 0, 0);
+        var wrongPlay = () => game.Play('X', 0, 0);
 
         var exception = Assert.Throws<Exception>(wrongPlay);
         Assert.Equal("Invalid position", exception.Message);
@@ -144,14 +139,14 @@ public class GameShould
 
 public class Tile
 {
-    public int X { get; set; }
-    public int Y { get; set; }
+    public int X { get; init; }
+    public int Y { get; init; }
     public char Symbol { get; set; }
 }
 
 public class Board
 {
-    private List<Tile> plays = new List<Tile>();
+    private readonly List<Tile> plays = new List<Tile>();
 
     public Board()
     {
@@ -184,7 +179,7 @@ public class Board
 public class Game
 {
     private char lastSymbol = ' ';
-    private Board board = new Board();
+    private readonly Board board = new Board();
 
     public void Play(char symbol, int x, int y)
     {
