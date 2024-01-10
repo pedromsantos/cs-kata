@@ -1,4 +1,6 @@
+namespace SocialNetworkKata.UseCases;
+
 public interface IUseCase {
   void Execute(string command);
-  string query(string query);
+  string Query(string query);
 }

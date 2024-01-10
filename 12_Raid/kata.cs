@@ -13,33 +13,33 @@ public class RaidService
             return RaidDao.FindRaidsBy(other);
         }
 
-        return new List<Raid>();
+        return [];
     }
 }
 
 public class GuildMember
 {
-    private readonly List<Raid> _raids = new();
-    private readonly List<GuildMember> _friends = new();
+    private readonly List<Raid> raids = [];
+    private readonly List<GuildMember> friends = new();
 
     public IEnumerable<GuildMember> GetFriends()
     {
-        return _friends;
+        return friends;
     }
 
     public void AddFriend(GuildMember member)
     {
-        _friends.Add(member);
+        friends.Add(member);
     }
 
     public void AddRaid(Raid raid)
     {
-        _raids.Add(raid);
+        raids.Add(raid);
     }
 
     public IEnumerable<Raid> GetRaids()
     {
-        return _raids;
+        return raids;
     }
 }
 

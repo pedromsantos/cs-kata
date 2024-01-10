@@ -146,13 +146,13 @@ public class Tile
 
 public class Board
 {
-    private readonly List<Tile> plays = new List<Tile>();
+    private readonly List<Tile> plays = [];
 
     public Board()
     {
-        for (int i = 0; i < 3; i++)
+        for (var i = 0; i < 3; i++)
         {
-            for (int j = 0; j < 3; j++)
+            for (var j = 0; j < 3; j++)
             {
                 plays.Add(new Tile { X = i, Y = j, Symbol = ' ' });
             }

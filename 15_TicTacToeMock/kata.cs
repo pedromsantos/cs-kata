@@ -32,25 +32,25 @@ public enum Column
 
 public class Coordinate
 {
-    private Row _row;
-    private Column _column;
+    private Row row;
+    private Column column;
 
     public Coordinate(Row row, Column column)
     {
-        _row = row;
-        _column = column;
+        this.row = row;
+        this.column = column;
     }
 }
 
 public class Play
 {
-    private Player _player;
-    private Coordinate _coordinate;
+    private Player player;
+    private Coordinate coordinate;
 
     public Play(Player player, Coordinate coordinate)
     {
-        _player = player;
-        _coordinate = coordinate;
+        this.player = player;
+        this.coordinate = coordinate;
     }
 }
 
