@@ -264,18 +264,18 @@ public class Tile
 
 public class Board
 {
-    private readonly List<Tile> _plays = new();
+    private readonly List<Tile> plays = new();
 
     public Board()
     {
         for (var row = 0; row < 3; row++)
-        for (var column = 0; column < 3; column++)
-            _plays.Add(new Tile(new Coordinate(row, column)));
+            for (var column = 0; column < 3; column++)
+                plays.Add(new Tile(new Coordinate(row, column)));
     }
 
     public Tile TileAt(Tile other)
     {
-        return _plays.Single(tile => tile.HasSamePosition(other));
+        return plays.Single(tile => tile.HasSamePosition(other));
     }
 
     public void AddTileAt(Tile newTile)
@@ -316,8 +316,8 @@ public class Board
 
 public class Game
 {
-    private readonly Board _board = new();
-    private Symbol _lastSymbol = Symbol.Empty;
+    private readonly Board board = new();
+    private Symbol lastSymbol = Symbol.Empty;
 
     public void Play(Tile newTile)
     {
@@ -331,33 +331,33 @@ public class Game
 
     private void UpdateBoard(Tile newTile)
     {
-        _board.AddTileAt(newTile);
+        board.AddTileAt(newTile);
     }
 
     private void UpdateLastPlayer(Symbol symbol)
     {
-        _lastSymbol = symbol;
+        lastSymbol = symbol;
     }
 
     private void ValidatePositionIsEmpty(Tile other)
     {
-        if (_board.TileAt(other).IsTaken()) throw new Exception("Invalid position");
+        if (board.TileAt(other).IsTaken()) throw new Exception("Invalid position");
     }
 
     private void ValidatePlayer(Symbol symbol)
     {
-        if (symbol == _lastSymbol) throw new Exception("Invalid next player");
+        if (symbol == lastSymbol) throw new Exception("Invalid next player");
     }
 
     private void ValidateFirstMove(Symbol symbol)
     {
-        if (_lastSymbol == Symbol.Empty)
+        if (lastSymbol == Symbol.Empty)
             if (symbol == Symbol.O)
                 throw new Exception("Invalid first player");
     }
 
     public Symbol Winner()
     {
-        return _board.FindSymbolWhoTookARow();
+        return board.FindSymbolWhoTookARow();
     }
 }

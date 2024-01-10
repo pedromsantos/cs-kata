@@ -197,23 +197,23 @@ public class Tile
 
 public class Board
 {
-    private readonly List<Tile> _plays = new();
+    private readonly List<Tile> plays = new();
 
     public Board()
     {
         for (var i = 0; i < 3; i++)
-        for (var j = 0; j < 3; j++)
-            _plays.Add(new Tile(i, j, Symbol.Empty));
+            for (var j = 0; j < 3; j++)
+                plays.Add(new Tile(i, j, Symbol.Empty));
     }
 
     public Tile TileAt(int x, int y)
     {
-        return _plays.Single(tile => tile.X == x && tile.Y == y);
+        return plays.Single(tile => tile.X == x && tile.Y == y);
     }
 
     public void AddTileAt(int x, int y, Symbol symbol)
     {
-        _plays.Single(tile => tile.X == x && tile.Y == y).Symbol = symbol;
+        plays.Single(tile => tile.X == x && tile.Y == y).Symbol = symbol;
     }
 
     public Symbol FindSymbolWhoTookARow()
@@ -249,8 +249,8 @@ public class Board
 
 public class Game
 {
-    private readonly Board _board = new();
-    private Symbol _lastSymbol = Symbol.Empty;
+    private readonly Board board = new();
+    private Symbol lastSymbol = Symbol.Empty;
 
     public void Play(char symbol, int x, int y)
     {
@@ -264,33 +264,33 @@ public class Game
 
     private void UpdateBoard(int x, int y, Symbol symbol)
     {
-        _board.AddTileAt(x, y, symbol);
+        board.AddTileAt(x, y, symbol);
     }
 
     private void UpdateLastPlayer(Symbol symbol)
     {
-        _lastSymbol = symbol;
+        lastSymbol = symbol;
     }
 
     private void ValidatePositionIsEmpty(int x, int y)
     {
-        if (_board.TileAt(x, y).IsTaken()) throw new Exception("Invalid position");
+        if (board.TileAt(x, y).IsTaken()) throw new Exception("Invalid position");
     }
 
     private void ValidatePlayer(Symbol symbol)
     {
-        if (symbol == _lastSymbol) throw new Exception("Invalid next player");
+        if (symbol == lastSymbol) throw new Exception("Invalid next player");
     }
 
     private void ValidateFirstMove(Symbol symbol)
     {
-        if (_lastSymbol == Symbol.Empty)
+        if (lastSymbol == Symbol.Empty)
             if (symbol == Symbol.O)
                 throw new Exception("Invalid first player");
     }
 
     public char Winner()
     {
-        return _board.FindSymbolWhoTookARow().ToChar();
+        return board.FindSymbolWhoTookARow().ToChar();
     }
 }

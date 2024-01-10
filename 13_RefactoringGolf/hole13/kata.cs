@@ -236,18 +236,18 @@ public class Tile
 
 public class Board
 {
-    private readonly List<Tile> _plays = new();
+    private readonly List<Tile> plays = new();
 
     public Board()
     {
         for (var row = 0; row < 3; row++)
-        for (var column = 0; column < 3; column++)
-            _plays.Add(new Tile(new Coordinate(row, column)));
+            for (var column = 0; column < 3; column++)
+                plays.Add(new Tile(new Coordinate(row, column)));
     }
 
     public Tile TileAt(Tile other)
     {
-        return _plays.Single(tile => tile.HasSamePositionHas(other));
+        return plays.Single(tile => tile.HasSamePositionHas(other));
     }
 
     public void AddTileAt(Tile newTile)
@@ -303,7 +303,7 @@ public class Board
 
 public class Game
 {
-    private readonly Board _board = new();
+    private readonly Board board = new();
     private Player _lastPlayer = Player.O;
 
     public void Play(Tile tile)
@@ -317,7 +317,7 @@ public class Game
 
     public Player Winner()
     {
-        return _board.FindPlayerWhoTookARow();
+        return board.FindPlayerWhoTookARow();
     }
 
     private void ValidatePlayer(Player player)
@@ -327,7 +327,7 @@ public class Game
 
     private void ValidatePosition(Tile tile)
     {
-        if (_board.TileAt(tile).IsTaken()) throw new Exception("Invalid position");
+        if (board.TileAt(tile).IsTaken()) throw new Exception("Invalid position");
     }
 
     private void UpdateLastPlayer(Player player)
@@ -337,6 +337,6 @@ public class Game
 
     private void UpdateBoard(Tile tile)
     {
-        _board.AddTileAt(tile);
+        board.AddTileAt(tile);
     }
 }
