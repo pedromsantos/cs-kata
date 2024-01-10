@@ -11,7 +11,7 @@ public class GameShould
     {
         var wrongPlay = () =>
         {
-            Symbol newSymbol = Symbol.O;
+            var newSymbol = Symbol.O;
             game.Play(new Tile(new Coordinate(0, 0), newSymbol));
         };
 
@@ -24,10 +24,7 @@ public class GameShould
     {
         game.Play(new Tile(new Coordinate(0, 0), Symbol.X));
 
-        var wrongPlay = () =>
-        {
-            game.Play(new Tile(new Coordinate(1, 0), Symbol.X));
-        };
+        var wrongPlay = () => { game.Play(new Tile(new Coordinate(1, 0), Symbol.X)); };
 
         var exception = Assert.Throws<Exception>(wrongPlay);
         Assert.Equal("Invalid next player", exception.Message);
@@ -38,10 +35,7 @@ public class GameShould
     {
         game.Play(new Tile(new Coordinate(0, 0), Symbol.X));
 
-        var wrongPlay = () =>
-        {
-            game.Play(new Tile(new Coordinate(0, 0), Symbol.O));
-        };
+        var wrongPlay = () => { game.Play(new Tile(new Coordinate(0, 0), Symbol.O)); };
 
         var exception = Assert.Throws<Exception>(wrongPlay);
         Assert.Equal("Invalid position", exception.Message);
@@ -51,13 +45,10 @@ public class GameShould
     public void NotAllowPlayerToPlayInAnyPlayedPosition()
     {
         game.Play(new Tile(new Coordinate(0, 0), Symbol.X));
-        Symbol newSymbol1 = Symbol.O;
+        var newSymbol1 = Symbol.O;
         game.Play(new Tile(new Coordinate(1, 0), newSymbol1));
 
-        var wrongPlay = () =>
-        {
-            game.Play(new Tile(new Coordinate(0, 0), Symbol.X));
-        };
+        var wrongPlay = () => { game.Play(new Tile(new Coordinate(0, 0), Symbol.X)); };
 
         var exception = Assert.Throws<Exception>(wrongPlay);
         Assert.Equal("Invalid position", exception.Message);
@@ -165,7 +156,7 @@ public enum Row
     Bottom
 }
 
-public enum Column 
+public enum Column
 {
     Left,
     Center,
@@ -174,8 +165,8 @@ public enum Column
 
 public class Coordinate
 {
-    private readonly Row row;
     private readonly Column column;
+    private readonly Row row;
 
     public Coordinate(int row, int column)
     {
@@ -195,7 +186,7 @@ public class Coordinate
             _ => throw new ArgumentOutOfRangeException(nameof(column), column, "Invalid column")
         };
     }
-    
+
     private bool Equals(Coordinate other)
     {
         return row == other.row && column == other.column;
@@ -205,7 +196,7 @@ public class Coordinate
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == this.GetType() && Equals((Coordinate)obj);
+        return obj.GetType() == GetType() && Equals((Coordinate)obj);
     }
 
     public override int GetHashCode()
@@ -214,18 +205,17 @@ public class Coordinate
     }
 }
 
-
 public class Tile
 {
     private readonly Coordinate coordinate;
-    
-    public Symbol Symbol { get; private set; }
 
     public Tile(Coordinate coordinate, Symbol symbol = Symbol.Empty)
     {
         this.coordinate = coordinate;
         Symbol = symbol;
     }
+
+    public Symbol Symbol { get; private set; }
 
     public bool HasSameSymbol(Tile other)
     {
@@ -250,18 +240,15 @@ public class Tile
 
 public class Board
 {
-    private List<Tile> _plays = new();
+    private readonly List<Tile> _plays = new();
 
     public Board()
     {
         for (var row = 0; row < 3; row++)
-        {
-            for (var column = 0; column < 3; column++)
-            {
-                _plays.Add(new Tile(new Coordinate(row, column)));
-            }
-        }
+        for (var column = 0; column < 3; column++)
+            _plays.Add(new Tile(new Coordinate(row, column)));
     }
+
     public Tile TileAt(Tile other)
     {
         return _plays.Single(tile => tile.HasSamePosition(other));
@@ -275,13 +262,9 @@ public class Board
     public Symbol FindSymbolWhoTookARow()
     {
         for (var rowIndex = 0; rowIndex < 3; rowIndex++)
-        {
             if (IsRowTakenWithSymbol(rowIndex))
-            {
                 return TileAt(new Tile(new Coordinate(rowIndex, 0))).Symbol;
-            } 
-        }
-            
+
         return Symbol.Empty;
     }
 
@@ -293,10 +276,10 @@ public class Board
 
     private bool HasRowSameSymbol(int rowIndex)
     {
-        return (TileAt(new Tile(new Coordinate(rowIndex, 0))).HasSameSymbol(
-                TileAt(new Tile(new Coordinate(rowIndex, 1)))) &&
-                TileAt(new Tile(new Coordinate(rowIndex, 2))).HasSameSymbol(
-                TileAt(new Tile(new Coordinate(rowIndex, 1)))));
+        return TileAt(new Tile(new Coordinate(rowIndex, 0))).HasSameSymbol(
+                   TileAt(new Tile(new Coordinate(rowIndex, 1)))) &&
+               TileAt(new Tile(new Coordinate(rowIndex, 2))).HasSameSymbol(
+                   TileAt(new Tile(new Coordinate(rowIndex, 1))));
     }
 
     private bool IsRowTaken(int rowIndex)
@@ -309,7 +292,7 @@ public class Board
 
 public class Game
 {
-    private Board _board = new();
+    private readonly Board _board = new();
     private Symbol _lastSymbol = Symbol.Empty;
 
     public void Play(Tile newTile)
@@ -334,26 +317,17 @@ public class Game
 
     private void ValidatePositionIsEmpty(Tile other)
     {
-        if (_board.TileAt(other).IsTaken())
-        {
-            throw new Exception("Invalid position");
-        }
+        if (_board.TileAt(other).IsTaken()) throw new Exception("Invalid position");
     }
 
     private void ValidatePlayer(Symbol symbol)
     {
-        if (symbol == _lastSymbol)
-        {
-            throw new Exception("Invalid next player");
-        }
+        if (symbol == _lastSymbol) throw new Exception("Invalid next player");
     }
 
     private void ValidateFirstMove(Symbol symbol)
     {
-        if (_lastSymbol == Symbol.Empty && symbol == Symbol.O)
-        {
-            throw new Exception("Invalid first player");
-        }
+        if (_lastSymbol == Symbol.Empty && symbol == Symbol.O) throw new Exception("Invalid first player");
     }
 
     public Symbol Winner()

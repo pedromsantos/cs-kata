@@ -1,4 +1,3 @@
-using RefactoringGolf.hole10;
 using Xunit;
 
 namespace RefactoringGolf.hole13;
@@ -10,10 +9,7 @@ public class GameShould
     [Fact]
     public void NotAllowPlayerOToPlayFirst()
     {
-        var exception = Assert.Throws<Exception>(() =>
-        {
-            _game.Play(new Tile(new Coordinate(0, 0), Player.O));
-        });
+        var exception = Assert.Throws<Exception>(() => { _game.Play(new Tile(new Coordinate(0, 0), Player.O)); });
         Assert.Equal("Invalid player", exception.Message);
     }
 
@@ -22,10 +18,7 @@ public class GameShould
     {
         _game.Play(new Tile(new Coordinate(0, 0), Player.X));
 
-        var exception = Assert.Throws<Exception>(() =>
-        {
-            _game.Play(new Tile(new Coordinate(1, 0), Player.X));
-        });
+        var exception = Assert.Throws<Exception>(() => { _game.Play(new Tile(new Coordinate(1, 0), Player.X)); });
         Assert.Equal("Invalid player", exception.Message);
     }
 
@@ -34,10 +27,7 @@ public class GameShould
     {
         _game.Play(new Tile(new Coordinate(0, 0), Player.X));
 
-        var exception = Assert.Throws<Exception>(() =>
-        {
-            _game.Play(new Tile(new Coordinate(0, 0), Player.O));
-        });
+        var exception = Assert.Throws<Exception>(() => { _game.Play(new Tile(new Coordinate(0, 0), Player.O)); });
         Assert.Equal("Invalid position", exception.Message);
     }
 
@@ -47,10 +37,7 @@ public class GameShould
         _game.Play(new Tile(new Coordinate(0, 0), Player.X));
         _game.Play(new Tile(new Coordinate(1, 0), Player.O));
 
-        var exception = Assert.Throws<Exception>(() =>
-        {
-            _game.Play(new Tile(new Coordinate(0, 0), Player.X));
-        });
+        var exception = Assert.Throws<Exception>(() => { _game.Play(new Tile(new Coordinate(0, 0), Player.X)); });
         Assert.Equal("Invalid position", exception.Message);
     }
 
@@ -165,8 +152,8 @@ public enum Column
 
 public class Coordinate
 {
-    private readonly Row _row;
     private readonly Column _column;
+    private readonly Row _row;
 
     public Coordinate(int row, int column)
     {
@@ -214,18 +201,17 @@ public class Coordinate
     }
 }
 
-
 public class Tile
 {
     private readonly Coordinate _coordinate;
 
-    public Player Player { get; private set; }
-
     public Tile(Coordinate coordinate, Player player = Player.None)
     {
-        this._coordinate = coordinate;
+        _coordinate = coordinate;
         Player = player;
     }
+
+    public Player Player { get; private set; }
 
     public bool HasSamePlayerHas(Tile other)
     {
@@ -255,13 +241,10 @@ public class Board
     public Board()
     {
         for (var row = 0; row < 3; row++)
-        {
-            for (var column = 0; column < 3; column++)
-            {
-                _plays.Add(new Tile(new Coordinate(row, column)));
-            }
-        }
+        for (var column = 0; column < 3; column++)
+            _plays.Add(new Tile(new Coordinate(row, column)));
     }
+
     public Tile TileAt(Tile other)
     {
         return _plays.Single(tile => tile.HasSamePositionHas(other));
@@ -275,12 +258,8 @@ public class Board
     public Player FindPlayerWhoTookARow()
     {
         for (var rowIndex = 0; rowIndex < 3; rowIndex++)
-        {
             if (IsRowTakenWithSamePlayer(rowIndex))
-            {
                 return TileAt(new Tile(new Coordinate(rowIndex, 0))).Player;
-            }
-        }
 
         return Player.None;
     }
@@ -343,18 +322,12 @@ public class Game
 
     private void ValidatePlayer(Player player)
     {
-        if (player == _lastPlayer)
-        {
-            throw new Exception("Invalid player");
-        }
+        if (player == _lastPlayer) throw new Exception("Invalid player");
     }
 
     private void ValidatePosition(Tile tile)
     {
-        if (_board.TileAt(tile).IsTaken())
-        {
-            throw new Exception("Invalid position");
-        }
+        if (_board.TileAt(tile).IsTaken()) throw new Exception("Invalid position");
     }
 
     private void UpdateLastPlayer(Player player)

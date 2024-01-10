@@ -60,7 +60,7 @@ public class GameShould
     [Fact]
     public void NotAllowPlayerOToPlayFirst()
     {
-        Action wrongPlay = () => game.Play(0, 0, 'O'.ToEnum());
+        var wrongPlay = () => game.Play(0, 0, 'O'.ToEnum());
 
         var exception = Assert.Throws<Exception>(wrongPlay);
         Assert.Equal("Invalid first player", exception.Message);
@@ -71,7 +71,7 @@ public class GameShould
     {
         game.Play(0, 0, 'X'.ToEnum());
 
-        Action wrongPlay = () => game.Play(1, 0, 'X'.ToEnum());
+        var wrongPlay = () => game.Play(1, 0, 'X'.ToEnum());
 
         var exception = Assert.Throws<Exception>(wrongPlay);
         Assert.Equal("Invalid next player", exception.Message);
@@ -82,7 +82,7 @@ public class GameShould
     {
         game.Play(0, 0, 'X'.ToEnum());
 
-        Action wrongPlay = () => game.Play(0, 0, 'O'.ToEnum());
+        var wrongPlay = () => game.Play(0, 0, 'O'.ToEnum());
 
         var exception = Assert.Throws<Exception>(wrongPlay);
         Assert.Equal("Invalid position", exception.Message);
@@ -94,7 +94,7 @@ public class GameShould
         game.Play(0, 0, 'X'.ToEnum());
         game.Play(1, 0, 'O'.ToEnum());
 
-        Action wrongPlay = () => game.Play(0, 0, 'X'.ToEnum());
+        var wrongPlay = () => game.Play(0, 0, 'X'.ToEnum());
 
         var exception = Assert.Throws<Exception>(wrongPlay);
         Assert.Equal("Invalid position", exception.Message);
@@ -202,7 +202,7 @@ public enum Row
     Bottom
 }
 
-public enum Column 
+public enum Column
 {
     Left,
     Center,
@@ -211,16 +211,16 @@ public enum Column
 
 public class Tile
 {
-    public Row X { get; }
-    public Column Y { get; }
-    public Symbol Symbol { get; set; }
-
-    public Tile(int x, int y, Symbol symbol = Symbol.Empty) 
+    public Tile(int x, int y, Symbol symbol = Symbol.Empty)
     {
         X = x.RowToEnum();
         Y = y.ColumnToEnum();
         Symbol = symbol;
     }
+
+    public Row X { get; }
+    public Column Y { get; }
+    public Symbol Symbol { get; set; }
 
     public bool HasSameSymbol(Tile other)
     {
@@ -240,38 +240,31 @@ public class Tile
 
 public class Board
 {
-    private List<Tile> _plays = new();
+    private readonly List<Tile> _plays = new();
 
     public Board()
     {
-        for (int row = 0; row < 3; row++)
-        {
-            for (int column = 0; column < 3; column++)
-            {
-                _plays.Add(new Tile(row, column));
-            }
-        }
+        for (var row = 0; row < 3; row++)
+        for (var column = 0; column < 3; column++)
+            _plays.Add(new Tile(row, column));
     }
+
     public Tile TileAt(int x, int y)
     {
-        return _plays.Single(tile => tile.HasSamePosition((new Tile(x,y))));
+        return _plays.Single(tile => tile.HasSamePosition(new Tile(x, y)));
     }
 
     public void AddTileAt(int x, int y, Symbol symbol)
     {
-        TileAt(x,y).Symbol = symbol;
+        TileAt(x, y).Symbol = symbol;
     }
 
     public Symbol FindSymbolWhoTookARow()
     {
         for (var rowIndex = 0; rowIndex < 3; rowIndex++)
-        {
             if (IsRowTakenWithSymbol(rowIndex))
-            {
                 return TileAt(rowIndex, 0).Symbol;
-            } 
-        }
-            
+
         return Symbol.Empty;
     }
 
@@ -283,10 +276,10 @@ public class Board
 
     private bool HasRowSameSymbol(int rowIndex)
     {
-        return (TileAt(rowIndex, 0).HasSameSymbol(
-                TileAt(rowIndex, 1)) &&
-                TileAt(rowIndex, 2).HasSameSymbol(
-                TileAt(rowIndex, 1)));
+        return TileAt(rowIndex, 0).HasSameSymbol(
+                   TileAt(rowIndex, 1)) &&
+               TileAt(rowIndex, 2).HasSameSymbol(
+                   TileAt(rowIndex, 1));
     }
 
     private bool IsRowTaken(int rowIndex)
@@ -299,8 +292,8 @@ public class Board
 
 public class Game
 {
+    private readonly Board _board = new();
     private Symbol _lastSymbol = Symbol.Empty;
-    private Board _board = new();
 
     public void Play(int x, int y, Symbol newSymbol)
     {
@@ -324,29 +317,19 @@ public class Game
 
     private void ValidatePositionIsEmpty(int x, int y)
     {
-        if (_board.TileAt(x, y).IsTaken())
-        {
-            throw new Exception("Invalid position");
-        }
+        if (_board.TileAt(x, y).IsTaken()) throw new Exception("Invalid position");
     }
 
     private void ValidatePlayer(Symbol symbol)
     {
-        if (symbol == _lastSymbol)
-        {
-            throw new Exception("Invalid next player");
-        }
+        if (symbol == _lastSymbol) throw new Exception("Invalid next player");
     }
 
     private void ValidateFirstMove(Symbol symbol)
     {
         if (_lastSymbol == Symbol.Empty)
-        {
             if (symbol == Symbol.O)
-            {
                 throw new Exception("Invalid first player");
-            }
-        }
     }
 
     public Symbol Winner()

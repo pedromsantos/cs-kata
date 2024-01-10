@@ -9,7 +9,7 @@ public class GameShould
     [Fact]
     public void NotAllowPlayerOToPlayFirst()
     {
-        Action wrongPlay = () => game.Play('O', 0, 0);
+        var wrongPlay = () => game.Play('O', 0, 0);
 
         var exception = Assert.Throws<Exception>(wrongPlay);
         Assert.Equal("Invalid first player", exception.Message);
@@ -20,7 +20,7 @@ public class GameShould
     {
         game.Play('X', 0, 0);
 
-        Action wrongPlay = () => game.Play('X', 1, 0);
+        var wrongPlay = () => game.Play('X', 1, 0);
 
         var exception = Assert.Throws<Exception>(wrongPlay);
         Assert.Equal("Invalid next player", exception.Message);
@@ -31,7 +31,7 @@ public class GameShould
     {
         game.Play('X', 0, 0);
 
-        Action wrongPlay = () => game.Play('O', 0, 0);
+        var wrongPlay = () => game.Play('O', 0, 0);
 
         var exception = Assert.Throws<Exception>(wrongPlay);
         Assert.Equal("Invalid position", exception.Message);
@@ -43,7 +43,7 @@ public class GameShould
         game.Play('X', 0, 0);
         game.Play('O', 1, 0);
 
-        Action wrongPlay = () => game.Play('X', 0, 0);
+        var wrongPlay = () => game.Play('X', 0, 0);
 
         var exception = Assert.Throws<Exception>(wrongPlay);
         Assert.Equal("Invalid position", exception.Message);
@@ -146,18 +146,15 @@ public class Tile
 
 public class Board
 {
-    private List<Tile> _plays = new();
+    private readonly List<Tile> _plays = new();
 
     public Board()
     {
-        for (int i = 0; i < 3; i++)
-        {
-            for (int j = 0; j < 3; j++)
-            {
-                _plays.Add(new Tile { X = i, Y = j, Symbol = ' ' });
-            }
-        }
+        for (var i = 0; i < 3; i++)
+        for (var j = 0; j < 3; j++)
+            _plays.Add(new Tile { X = i, Y = j, Symbol = ' ' });
     }
+
     public Tile TileAt(int x, int y)
     {
         return _plays.Single(tile => tile.X == x && tile.Y == y);
@@ -170,49 +167,37 @@ public class Board
 
     public char SamePlayerAtAllColumnsInRows()
     {
-        if (this.TileAt(0, 0).Symbol != ' ' &&
-            this.TileAt(0, 1).Symbol != ' ' &&
-            this.TileAt(0, 2).Symbol != ' ')
-        {
+        if (TileAt(0, 0).Symbol != ' ' &&
+            TileAt(0, 1).Symbol != ' ' &&
+            TileAt(0, 2).Symbol != ' ')
             //if first row is full with same symbol
-            if (this.TileAt(0, 0).Symbol ==
-                this.TileAt(0, 1).Symbol &&
-                this.TileAt(0, 2).Symbol ==
-                this.TileAt(0, 1).Symbol)
-            {
-                return this.TileAt(0, 0).Symbol;
-            }
-        }
+            if (TileAt(0, 0).Symbol ==
+                TileAt(0, 1).Symbol &&
+                TileAt(0, 2).Symbol ==
+                TileAt(0, 1).Symbol)
+                return TileAt(0, 0).Symbol;
 
         //if the positions in first row are taken
-        if (this.TileAt(1, 0).Symbol != ' ' &&
-            this.TileAt(1, 1).Symbol != ' ' &&
-            this.TileAt(1, 2).Symbol != ' ')
-        {
+        if (TileAt(1, 0).Symbol != ' ' &&
+            TileAt(1, 1).Symbol != ' ' &&
+            TileAt(1, 2).Symbol != ' ')
             //if middle row is full with same symbol
-            if (this.TileAt(1, 0).Symbol ==
-                this.TileAt(1, 1).Symbol &&
-                this.TileAt(1, 2).Symbol ==
-                this.TileAt(1, 1).Symbol)
-            {
-                return this.TileAt(1, 0).Symbol;
-            }
-        }
+            if (TileAt(1, 0).Symbol ==
+                TileAt(1, 1).Symbol &&
+                TileAt(1, 2).Symbol ==
+                TileAt(1, 1).Symbol)
+                return TileAt(1, 0).Symbol;
 
         //if the positions in first row are taken
-        if (this.TileAt(2, 0).Symbol != ' ' &&
-            this.TileAt(2, 1).Symbol != ' ' &&
-            this.TileAt(2, 2).Symbol != ' ')
-        {
+        if (TileAt(2, 0).Symbol != ' ' &&
+            TileAt(2, 1).Symbol != ' ' &&
+            TileAt(2, 2).Symbol != ' ')
             //if middle row is full with same symbol
-            if (this.TileAt(2, 0).Symbol ==
-                this.TileAt(2, 1).Symbol &&
-                this.TileAt(2, 2).Symbol ==
-                this.TileAt(2, 1).Symbol)
-            {
-                return this.TileAt(2, 0).Symbol;
-            }
-        }
+            if (TileAt(2, 0).Symbol ==
+                TileAt(2, 1).Symbol &&
+                TileAt(2, 2).Symbol ==
+                TileAt(2, 1).Symbol)
+                return TileAt(2, 0).Symbol;
 
         return ' ';
     }
@@ -220,8 +205,8 @@ public class Board
 
 public class Game
 {
+    private readonly Board _board = new();
     private char _lastSymbol = ' ';
-    private Board _board = new Board();
 
     public void Play(char symbol, int x, int y)
     {
@@ -245,29 +230,19 @@ public class Game
 
     private void ValidatePositionIsEmpty(int x, int y)
     {
-        if (_board.TileAt(x, y).Symbol != ' ')
-        {
-            throw new Exception("Invalid position");
-        }
+        if (_board.TileAt(x, y).Symbol != ' ') throw new Exception("Invalid position");
     }
 
     private void ValidatePlayer(char symbol)
     {
-        if (symbol == _lastSymbol)
-        {
-            throw new Exception("Invalid next player");
-        }
+        if (symbol == _lastSymbol) throw new Exception("Invalid next player");
     }
 
     private void ValidateFirstMove(char symbol)
     {
         if (_lastSymbol == ' ')
-        {
             if (symbol == 'O')
-            {
                 throw new Exception("Invalid first player");
-            }
-        }
     }
 
     public char Winner()
