@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net7.0</TargetFramework>
         <RootNamespace>RefactoringGolf</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
@@ -9,14 +9,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="xunit" Version="2.6.5"/>
-        <PackageReference Include="NSubstitute" Version="5.1.0"/>
-        <PackageReference Include="FluentAssertions" Version="6.12.0"/>
-        <PackageReference Include="AutoFixture.Idioms" Version="4.18.1"/>
-        <PackageReference Include="AutoFixture.Xunit2" Version="4.18.1"/>
-        <PackageReference Include="AutoFixture.AutoNSubstitute" Version="4.18.1"/>
-        <PackageReference Include="CSharpFunctionalExtensions.FluentAssertions" Version="2.0.0"/>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
+        <PackageReference Include="xunit" Version="2.6.5" />
+        <PackageReference Include="NSubstitute" Version="5.1.0" />
+        <PackageReference Include="FluentAssertions" Version="6.12.0" />
+        <PackageReference Include="AutoFixture.Idioms" Version="4.18.1" />
+        <PackageReference Include="AutoFixture.Xunit2" Version="4.18.1" />
+        <PackageReference Include="AutoFixture.AutoNSubstitute" Version="4.18.1" />
+        <PackageReference Include="CSharpFunctionalExtensions.FluentAssertions" Version="2.0.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.5.6">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
@@ -25,19 +25,19 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Meziantou.Xunit.ParallelTestFramework" Version="2.1.0"/>
+        <PackageReference Include="Meziantou.Xunit.ParallelTestFramework" Version="2.1.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <Compile Remove="TestResults\**"/>
+        <Compile Remove="TestResults\**" />
     </ItemGroup>
 
     <ItemGroup>
-        <EmbeddedResource Remove="TestResults\**"/>
+        <EmbeddedResource Remove="TestResults\**" />
     </ItemGroup>
 
     <ItemGroup>
-        <None Remove="TestResults\**"/>
+        <None Remove="TestResults\**" />
     </ItemGroup>
 
 
