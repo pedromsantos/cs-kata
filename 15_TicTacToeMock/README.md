@@ -14,4 +14,3 @@
 In this version of TicTacToe nothing is returned but a call to an Output is made to print the game.
 
 Use the type definitions n kata.cs to get started:
-
