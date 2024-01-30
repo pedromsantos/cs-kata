@@ -2,7 +2,7 @@ using Xunit;
 
 namespace CharacterCopierKata;
 
-public class CharacterCopierShould 
+public class CharacterCopierShould
 {
     [Fact]
     public void CopyCharacterFromSourceToDestination()
@@ -13,7 +13,7 @@ public class CharacterCopierShould
 
 public class CharacterCopier
 {
-    public void Copy() {}
+    public void Copy() { }
 }
 
 public interface ISource
@@ -23,5 +23,5 @@ public interface ISource
 
 public interface IDestination
 {
-    void GetChar(char character);
+    void SetChar(char character);
 }
