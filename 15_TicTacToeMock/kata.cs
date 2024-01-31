@@ -61,7 +61,7 @@ public interface IPlay
 
 public interface IOutput
 {
-    void PrintPlay(Play play);
-    void PrintWinner(Player player);
+    void PrintPlay(string Player, int row, int y);
+    void PrintWinner(string player);
     void PrintError(string errorMessage);
 }
