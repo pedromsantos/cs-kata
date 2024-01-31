@@ -29,7 +29,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Raid", "12_Raid\Raid.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RefactoringGolf", "13_RefactoringGolf\RefactoringGolf.csproj", "{9DCC252C-E855-4178-BEFA-ED27501E4861}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharacterCopier", "14_CharacterCopier\CharacterCopier.csproj", "{36D6986B-FE11-4945-91F6-F2BB0068D326}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharacterCopier", "15_CharacterCopier\CharacterCopier.csproj", "{36D6986B-FE11-4945-91F6-F2BB0068D326}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToeMock", "16_TicTacToeMock\TicTacToeMock.csproj", "{5CDE2ECB-4719-4C52-AD4A-DAAB3BC81FEB}"
 EndProject
@@ -37,7 +37,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESAMarsRover", "17_ESAMarsR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCart", "18_ShoppingCart\ShoppingCart.csproj", "{66BB0F37-1038-4DFB-A329-F85F3D9A7BA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmellyTicTacToe", "15_SmellyTicTacToe\SmellyTicTacToe.csproj", "{E57F46F2-EE7B-45B9-AFF5-A19592EF0CCD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmellyTicTacToe", "14_SmellyTicTacToe\SmellyTicTacToe.csproj", "{E57F46F2-EE7B-45B9-AFF5-A19592EF0CCD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialNetwork", "19_SocialNetwork\SocialNetwork.csproj", "{30B38272-47A5-4C8A-804E-B09E92DB22AF}"
 EndProject
