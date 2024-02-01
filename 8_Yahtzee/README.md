@@ -4,9 +4,8 @@
 
 The game of yahtzee is a simple dice game.
 
-Each round, each player rolls five six sided dice.
+Each round, players rolls five six sided dice.
 The player may choose to reroll some or all of the dice up to three times (including the original roll).
-
 The player then places the roll at a category, such as ones, twos, sixes, pair, two pairs etc.
 If the roll is compatible with the score, the player gets a score for this roll according to the rules.
 If the roll is not compatible, the player gets a score of zero for this roll.
@@ -25,9 +24,9 @@ The kata consists of creating the rules to score rolls, calculate player totals 
 ### Implement
 
 - Player assigns final roll to a category (see catagory list below)
-- Player cannot assign to already assigned category
+- Player cannot assign to an already assigned category
 - Calculate score for player/roll/category
-  - If roll is compatible score
+  - If roll is compatible score using the category specific scoring rules
   - If roll is not compatible score zero
 - Update player score
 - Game finishes when all players have assigned rolls to all categories
