@@ -4,7 +4,7 @@
 
 - Implement a networking application (similar to Twitter) satisfying the scenarios below.
 - Use a Domain Driven Design and Hexagonal architecture approach.
-- Start from the use cases, we will not be implementing the transport layer for this project.
+- Start from the use case(s)/application service(s), we will not be implementing the transport layer for this project.
 - Use a in-memory database implementation.
 
 ### Scenarios
