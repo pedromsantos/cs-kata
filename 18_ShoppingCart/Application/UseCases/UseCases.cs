@@ -1,4 +1,4 @@
-namespace ShoppingCartKata;
+namespace ShoppingCartKata.Application.UseCases;
 
 public interface IAddProductToCartUseCase {
     void Execute(string cartId, string productId);

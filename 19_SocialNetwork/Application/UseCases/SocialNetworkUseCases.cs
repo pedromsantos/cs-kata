@@ -1,4 +1,4 @@
-namespace SocialNetworkKata.UseCases;
+namespace SocialNetworkKata.Application.UseCases;
 
 public interface IUseCase {
   void Execute(string command);
