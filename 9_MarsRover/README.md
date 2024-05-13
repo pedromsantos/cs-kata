@@ -81,6 +81,25 @@ const finalPosition = rover.execute('5 5\n1 2 N\nLMLMLMLMM');
 
 ## Second run
 
+### Obstacles
+
+The grid may have obstacles.
+If a given sequence of commands encounters an obstacle, the rover moves up to the last possible point and reports the obstacle by prefixing O: to the position string that it returns.
+For instance, 'O:1:1:N' would mean that the rover encountered an obstacle at position (1, 2).
+
+#### Example
+
+```text
+5:5
+0:3 2:2
+0:0
+MMMM
+```
+
+Given a grid with an obstacle at (0, 3), input MMMM gives output O:0:2:N
+
+## Third run
+
 Refactor the code you produced in the first run using design patterns, namely Command, State and Strategy.
 
 Additional reading after completing the exercise <https://www.codurance.com/publications/2019/01/22/mars-rover-kata-refactoring-to-patterns>
