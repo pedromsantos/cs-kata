@@ -1,4 +1,5 @@
 openapi: 3.0.3
+
 info:
   description: "This API allows playing a text based adventure game"
   version: "1.0.0"
@@ -6,13 +7,13 @@ info:
   license:
     name: "Apache 2.0"
     url: "https://www.apache.org/licenses/LICENSE-2.0.html"
+
 tags:
   - name: Game
     description: Start and Quit a game, help and list active players
   - name: Player
     description: Interact with the game as a player
-  - name: Items
-    description: Interact with the game items as a player
+
 paths:
   /game:
     delete:
@@ -88,6 +89,7 @@ paths:
                   "BAG",
                   "USE [ item ]",
                 ]
+
   /game/save:
     post:
       tags:
@@ -151,6 +153,7 @@ paths:
                 $ref: "#/components/schemas/Location"
         "404":
           description: Player with Sid playerSid not found
+
   /player/{playerSid}/bag:
     get:
       tags:
@@ -231,6 +234,7 @@ paths:
           description: Moved in requested direction
         "405":
           description: Cannot move in requested direction
+
   /player/{playerSid}/look/{direction}:
     get:
       tags:
@@ -266,10 +270,11 @@ paths:
                     uri: item/00-0000-0000-0002
         "404":
           description: Player with Sid playerSid not found
-  /items/{itemSid}:
+
+  /player/items/{itemSid}:
     get:
       tags:
-        - Items
+        - Player
       summary: Inspect item
       description: Returns more detailed information about an item
       operationId: getItemDescription
