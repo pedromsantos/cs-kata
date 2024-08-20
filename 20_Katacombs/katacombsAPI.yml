@@ -14,29 +14,6 @@ tags:
   - name: Player
     description: Interact with the game as a player
 paths:
-  /game/help:
-    get:
-      tags:
-        - Game
-      summary: Help
-      description: Returns available game commands for player
-      operationId: help
-      responses:
-        "200":
-          description: Available commands
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Help"
-              example:
-                - GO [ direction ]
-                - LOOK [ direction/item ]
-                - OPEN [ item ]
-                - CLOSE [ item ]
-                - TAKE [ item ]
-                - DROP [ item ]
-                - BAG
-                - USE [ item ]
   /game/player:
     post:
       tags:
