@@ -1,6 +1,6 @@
 @Katacombs_HostAddress = http://localhost:5045
 
-GET {{Katacombs_HostAddress}}/weatherforecast/
+GET {{Katacombs_HostAddress}}/katacombs/
 Accept: application/json
 
 ###
