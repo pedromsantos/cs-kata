@@ -1,25 +1,20 @@
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
-using Katacombs.Controllers.Requests;
 using Katacombs.Controllers.Responses;
 
 namespace Katacombs.Controllers
 {
     [ApiController]
+    [SwaggerTag("Player operations")]
     public class PlayerController : ControllerBase
     {
-        /// <summary>
-        /// Player location
-        /// </summary>
-        /// <remarks>Returns information about a location</remarks>
-        /// <param name="playerSid">Player unique identification</param>
-        /// <response code="200">Room description</response>
-        /// <response code="404">Player with Sid playerSid not found</response>
         [HttpGet]
         [Route("/player/{playerSid}/location")]
         [SwaggerOperation("LookArround")]
         [SwaggerResponse(statusCode: 200, type: typeof(LocationResponse), description: "Room description")]
+        [SwaggerResponse(statusCode: 404, type:typeof(void), description: "Player not found")]
+        [Produces("application/json")]
         public virtual IActionResult LookAround([FromRoute][Required] string playerSid)
         {
             throw new NotImplementedException();

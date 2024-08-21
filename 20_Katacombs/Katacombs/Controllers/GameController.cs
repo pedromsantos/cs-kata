@@ -1,24 +1,31 @@
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using System.ComponentModel.DataAnnotations;
 using Katacombs.Controllers.Requests;
-using Katacombs.Controllers.Responses;
 
 namespace Katacombs.Controllers
 {
     [ApiController]
+    [SwaggerTag("Game operations")]
     public class GameController : ControllerBase
     {
         /// <summary>
         /// Start a new game
         /// </summary>
-        /// <remarks>Show description</remarks>
+        /// <remarks>Starts a Game for a new player</remarks>
         /// <param name="body"></param>
-        /// <response code="201">Game started</response>
+        /// <response code="201">Game started for player</response>
+        /// <response code="400">Game not started for player</response>
         [HttpPost]
         [Route("/game/player")]
-        [SwaggerOperation("CreatePlayer")]
-        public virtual IActionResult CreatePlayer([FromBody] PlayerRequest body)
+        [SwaggerOperation(
+            Summary = "Start Game",
+            Description = "Starts a Game for a new player",
+            OperationId = "CreatePlayer",
+            Tags = ["Game", "Player"]
+        )]
+        [SwaggerResponse(StatusCodes.Status201Created, description: "Created Game", typeof(void))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, description: "Bad Request", typeof(void))]
+        public virtual IActionResult CreatePlayer([FromBody, SwaggerRequestBody("The player payload", Required = true)] PlayerRequest body)
         {
             throw new NotImplementedException();
         }
