@@ -11,7 +11,7 @@ public class MarsRoverShould
 }
 
 public interface IRover {
-    void Execute(string instructions);
+    void Execute();
 }
 
 public interface IRadio {
