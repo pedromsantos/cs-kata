@@ -135,6 +135,7 @@ TAKE [item]
 DROP [item]
 BAG
 USE [item]
+QUIT
 ```
 
 #### _Quit_
