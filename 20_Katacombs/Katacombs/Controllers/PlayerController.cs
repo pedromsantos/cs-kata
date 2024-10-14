@@ -5,15 +5,24 @@ using Katacombs.Controllers.Responses;
 
 namespace Katacombs.Controllers
 {
+    /// <summary>
+    /// Controller for player operations.
+    /// </summary>
     [ApiController]
     [SwaggerTag("Player operations")]
     public class PlayerController : ControllerBase
     {
+        /// <summary>
+        /// Returns the current location of the player.
+        /// </summary>
+        /// <param name="playerSid">Player unique identification</param>
+        /// <response code="200">Room description</response>
+        /// <response code="404">Player not found</response>
         [HttpGet]
         [Route("/player/{playerSid}/location")]
         [SwaggerOperation("LookArround")]
         [SwaggerResponse(statusCode: 200, type: typeof(LocationResponse), description: "Room description")]
-        [SwaggerResponse(statusCode: 404, type:typeof(void), description: "Player not found")]
+        [SwaggerResponse(statusCode: 404, type: typeof(void), description: "Player not found")]
         [Produces("application/json")]
         public virtual IActionResult LookAround([FromRoute][Required] string playerSid)
         {

@@ -4,6 +4,9 @@ using Katacombs.Controllers.Requests;
 
 namespace Katacombs.Controllers
 {
+    /// <summary>
+    /// Controller for game operations
+    /// </summary>
     [ApiController]
     [SwaggerTag("Game operations")]
     public class GameController : ControllerBase
