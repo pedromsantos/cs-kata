@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Katacombs.Controllers;
 
 /// <summary>
-/// Home controller for handling requests.
+/// Home controller for swagger documentation requests.
 /// </summary>
 public class HomeController : ControllerBase
 {
