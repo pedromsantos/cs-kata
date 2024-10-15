@@ -8,6 +8,17 @@ namespace Katacombs.Controllers;
 public class HomeController : ControllerBase
 {
 	/// <summary>
+	/// Redirect root requests to Swagger API documentation.
+	/// </summary>
+	/// <returns>Redirect to Swagger API documentation.</returns>
+	[ApiExplorerSettings(IgnoreApi = true)]
+	[HttpGet("/")]
+	public IActionResult Home()
+	{
+		return RedirectPermanent("/swagger/index.html");
+	}
+
+	/// <summary>
 	/// Swagger API documentation.
 	/// </summary>
 	/// <returns>Displays Swagger API documentation.</returns>
