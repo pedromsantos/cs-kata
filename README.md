@@ -16,6 +16,12 @@ dotnet build
 dotnet test
 ```
 
+Or alternetively use the awsome TRX test reporting tool for the console
+
+```sh
+dotnet test -l trx; trx
+```
+
 ### Execute tests with coverage
 
 ```sh

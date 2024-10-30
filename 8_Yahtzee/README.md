@@ -1,61 +1,81 @@
-# Yahtzee kata
+# Tic Tac Toe kata
 
 ## Rules
 
-The game of yahtzee is a simple dice game.
+- The game is played on a grid that's 3 squares by 3 squares
+- Players alternate placing X’s and O’s in empty squares
+- X always plays first
+- Players cannot play on a played square
+- A Player wins when it has three squares in a row
+  - Horizontally
+  - Vertically
+  - Diagonally
+- If all nine squares are filled and neither player has won, the game is a draw
 
-Each round, players rolls five six sided dice.
-The player may choose to reroll some or all of the dice up to three times (including the original roll).
-The player then places the roll at a category, such as ones, twos, sixes, pair, two pairs etc.
-If the roll is compatible with the score, the player gets a score for this roll according to the rules.
-If the roll is not compatible, the player gets a score of zero for this roll.
+## Follow TDD rules strictly
 
-The kata consists of creating the rules to score rolls, calculate player totals and determine when game is finished.
+1. ✅ Write production code only to pass a failing unit test
+2. ✅ Write only enough of a unit test to make it fail
+3. ✅ Write only enough production code to make the failing test pass
 
-## Implementation
+## First run
 
-### Offline (No need to implement this part)
+Implement Tic Tac Toe as best as you can using TDD.
 
-- Player rolls 5 die
-- Player can re-roll any number of die
-- Player can re-roll any number of die
-- Player can re-roll any number of die
+## Second run
 
-### Implement
+Implement Tic Tac Toe strictly applying object calisthenics rules.
 
-- Player assigns final roll to a category (see catagory list below)
-- Player cannot assign to an already assigned category
-- Calculate score for player/roll/category
-  - If roll is compatible score using the category specific scoring rules
-  - If roll is not compatible score zero
-- Update player score
-- Game finishes when all players have assigned rolls to all categories
+## Object calisthenics
 
-### Categories
+### In order of importance (defined by Pedro)
 
-- Ones, Twos, Threes, Fours, Fives, Sixes
-  - The player scores the sum of the dice that reads one, two, three, four, five or six, respectively.
-  - Example roll: 1, 1, 2, 4, 4 placed on “fours” scores 8 points.
-- Pair
-  - The player scores the sum of the two highest matching dice.
-  - Example roll: 3, 3, 3, 4, 4 placed on “pair” scores 8.
-- Two pairs
-  - If there are two pairs of dice with the same number, the player scores the sum of these dice.
-  - For example, 1, 1, 2, 3, 3 placed on “two pairs” scores 8.
-- Three of a kind
-  - If there are three dice with the same number, the player scores the sum of these dice.
-  - Example roll: 3, 3, 3, 4, 5 places on “three of a kind” scores 9.
-- Four of a kind
-  - If there are four dice with the same number, the player scores the sum of these dice.
-  - Example roll: 2, 2, 2, 2, 5 places on “four of a kind” scores 8.
-- Small straight
-  - If the roll starts on 1
-  - Example roll: 1,2,3,4,5, the player scores 15 (the sum of all the dice).
-- Large straight
-  - If the roll starts on 2
-  - Example roll: 2,3,4,5,6, the player scores 20 (the sum of all the dice).
-- Full house
-  - If the dice are two of a kind and three of a kind, the player scores the sum of all the dice.
-  - Example roll: 1,1,2,2,2 placed on “full house” scores 8.
-- Yahtzee
-  - If all dice have the same number, the player scores 50 points.
+- Wrap all primitives and strings
+  - Wrap primitives in a type, specially if it has behaviour or it’s an important domain concept
+- First class collections
+  - Wrap collections in a type, specially if it has behaviour or it’s an important domain concept
+- One dot per line
+  - Do not write dog.Body.Tail.Wag() write dog.ExpressHappiness() - Law of Demeter
+- No getters/setters/properties, no access to private data, none! - TELL DON’T ASK!
+- No classes with more than two instance variables
+- Only one level of indentation per method
+- Don't use the ELSE keyword
+- Don't abbreviate names
+- Keep all entities small
+  - 10 files per package/namespace
+  - 50 lines per class
+  - 5 lines per method
+  - 2-3? arguments per method
+
+## Great habits
+
+### Considerations when writing a new test
+
+- Tests should test one thing only.
+- Create more specific tests to drive a more generic solution (triangulate).
+- Give your tests meaningful names (behavior/goal-oriented) that reflect your business domain.
+- See the test fail for the right reason.
+- Ensure you have meaningful feedback from failing tests.
+- Keep your tests and production code separate.
+- Organize your unit tests to reflect your production code (similar project structure).
+- Organize your test in arrange, act and assert blocks.
+- Write the, or at least focus on the, assertion first and work backward.
+- Write fast, isolated, repeatable and self-validating tests.
+
+### Considerations when making a failing test pass
+
+- Write the simplest code to pass the test.
+- Write any code that makes you get to the refactor phase quicker.
+- Use Transformation Priority Premise.
+- Consider using object calisthenics to drive design decisions.
+
+### Considerations after the test passes
+
+- Use the Rule of Three to tackle duplication.
+- Refactor design constantly.
+- Apply object calisthenics to improve your design.
+
+## Resources
+
+<https://levelup.gitconnected.com/learn-these-9-rules-to-start-writing-clean-code-immediately-a7ee40fe1e1b>
+<https://williamdurand.fr/2013/06/03/object-calisthenics/>

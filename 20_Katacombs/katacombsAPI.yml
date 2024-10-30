@@ -1,8 +1,8 @@
 openapi: 3.0.0
 info:
-  description: This API allows playing a text based adventure game
+  description: This API allows playing a text-based adventure game called Katacombs
   version: 1.0.0
-  title: Katacombs
+  title: Katacombs API
   license:
     name: Apache 2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
@@ -28,7 +28,11 @@ paths:
               $ref: "#/components/schemas/Player"
       responses:
         "201":
-          description: Game started
+          description: Game started successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Player"
     get:
       tags:
         - Game
@@ -58,12 +62,15 @@ paths:
             $ref: "#/components/schemas/Sid"
       responses:
         "200":
-          description: Game finished
+          description: Game finished successfully
           content:
-            text/plain:
+            application/json:
               schema:
-                type: string
-                example: Game Over
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Game Over"
         "404":
           description: Player with Sid playerSid not found
   /player/items/{itemSid}:
@@ -137,7 +144,15 @@ paths:
             $ref: "#/components/schemas/Action"
       responses:
         "200":
-          description: Action performed
+          description: Action performed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Action completed successfully"
         "404":
           description: Player or Item with Sid playerSid not found
         "405":
@@ -297,7 +312,7 @@ components:
           items:
             $ref: "#/components/schemas/Item"
     Player:
-      description: Player type
+      description: Player information
       type: object
       required:
         - sid
@@ -307,7 +322,11 @@ components:
           $ref: "#/components/schemas/Sid"
         name:
           type: string
-          example: Pedro
+          example: "Pedro"
+        location:
+          $ref: "#/components/schemas/Location"
+        bag:
+          $ref: "#/components/schemas/Bag"
     Sid:
       description: Sid type
       type: string
