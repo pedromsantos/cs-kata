@@ -211,11 +211,11 @@ public class Game
 
     public char Winner()
     {
-        SetWinner();
+        DetermineWinner();
         return winner;
     }
 
-    private void SetWinner()
+    private void DetermineWinner()
     {
         if (board.TileAt(0, 0).Symbol != ' ' &&
                    board.TileAt(0, 1).Symbol != ' ' &&
