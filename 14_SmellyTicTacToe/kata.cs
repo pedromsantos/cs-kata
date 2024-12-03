@@ -180,7 +180,6 @@ public class Game
 {
     private char lastSymbol = ' ';
     private readonly Board board = new Board();
-
     private char winner = ' ';
 
     public void Play(char symbol, int x, int y)
