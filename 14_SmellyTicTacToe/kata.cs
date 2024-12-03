@@ -181,6 +181,8 @@ public class Game
     private char lastSymbol = ' ';
     private readonly Board board = new Board();
 
+    private char winner = ' ';
+
     public void Play(char symbol, int x, int y)
     {
         //if first move
@@ -209,10 +211,16 @@ public class Game
     }
 
     public char Winner()
-    {   //if the positions in first row are taken
+    {
+        SetWinner();
+        return winner;
+    }
+
+    private void SetWinner()
+    {
         if (board.TileAt(0, 0).Symbol != ' ' &&
-           board.TileAt(0, 1).Symbol != ' ' &&
-           board.TileAt(0, 2).Symbol != ' ')
+                   board.TileAt(0, 1).Symbol != ' ' &&
+                   board.TileAt(0, 2).Symbol != ' ')
         {
             //if first row is full with same symbol
             if (board.TileAt(0, 0).Symbol ==
@@ -220,7 +228,7 @@ public class Game
                 board.TileAt(0, 2).Symbol ==
                 board.TileAt(0, 1).Symbol)
             {
-                return board.TileAt(0, 0).Symbol;
+                winner = board.TileAt(0, 0).Symbol;
             }
         }
 
@@ -235,7 +243,7 @@ public class Game
                 board.TileAt(1, 2).Symbol ==
                 board.TileAt(1, 1).Symbol)
             {
-                return board.TileAt(1, 0).Symbol;
+                winner = board.TileAt(1, 0).Symbol;
             }
         }
 
@@ -250,10 +258,8 @@ public class Game
                 board.TileAt(2, 2).Symbol ==
                 board.TileAt(2, 1).Symbol)
             {
-                return board.TileAt(2, 0).Symbol;
+                winner = board.TileAt(2, 0).Symbol;
             }
         }
-
-        return ' ';
     }
 }
