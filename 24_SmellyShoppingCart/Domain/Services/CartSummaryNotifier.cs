@@ -1,3 +1,4 @@
+using System.Globalization;
 using SmellyShoppingCartKata.Domain.Models;
 using SmellyShoppingCartKata.Domain.Ports;
 
@@ -17,7 +18,7 @@ public class CartSummaryNotifier
     public decimal NotifyTotal(string customerEmail, IReadOnlyList<LineItem> items)
     {
         var total = promotionEngine.Apply(items);
-        notifications.Send(customerEmail, $"Cart total: {total:F2}€");
+        notifications.Send(customerEmail, $"Cart total: {total.ToString("F2", CultureInfo.InvariantCulture)}€");
         return total;
     }
 }

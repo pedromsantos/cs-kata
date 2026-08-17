@@ -1,3 +1,4 @@
+using System.Globalization;
 using SmellyShoppingCartKata.Domain.Ports;
 using SmellyShoppingCartKata.Domain.Repositories;
 using SmellyShoppingCartKata.Infrastructure.Gateways;
@@ -46,7 +47,7 @@ public class CheckoutCart
         var confirmationCode = $"ORD-{Math.Floor(randomSource() * 1_000_000)}";
         var confirmedAt = clock.Now();
 
-        notifier.Send(customerEmail, $"Order confirmed: {confirmationCode}, total {total:F2}€");
+        notifier.Send(customerEmail, $"Order confirmed: {confirmationCode}, total {total.ToString("F2", CultureInfo.InvariantCulture)}€");
 
         return new Receipt
         {
