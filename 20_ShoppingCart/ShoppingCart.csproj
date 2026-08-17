@@ -28,8 +28,4 @@
         <PackageReference Include="Meziantou.Xunit.ParallelTestFramework" Version="2.3.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Domain\" />
-    </ItemGroup>
-
 </Project>
