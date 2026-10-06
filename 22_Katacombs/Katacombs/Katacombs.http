@@ -1,6 +1,0 @@
-@Katacombs_HostAddress = http://localhost:5045
-
-GET {{Katacombs_HostAddress}}/katacombs/
-Accept: application/json
-
-###
